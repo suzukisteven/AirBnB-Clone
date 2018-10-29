@@ -26,6 +26,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'clearance'
 # Add Google OAuth to manage User Login
 gem "omniauth-google-oauth2", "~> 0.2.1"
+# Add Figaro for protection
+gem "figaro"
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
