@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <%= stylesheet_link_tag    'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css'%>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tag %>
+  <title>ScamBnB</title>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <%= link_to "ScamBnB", root_path, class: "navbar-brand text-danger" %>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <%= link_to "Home", root_path, class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Show All Listings", listings_path, class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Create A Listing", new_listing_path, class: "nav-link" %>
+      </li>
+      <% if !signed_in? -%>
+      <li class="nav-item">
+        <%= link_to "Sign Up", sign_up_path, class: "nav-link" %>
+      </li>
+      <% end %>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search..." aria-label="Search">
+      <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Login</button>
+    </form>
+  </div>
+</nav>
+
+  <div id="header">
+    <% if signed_in? -%>
+      <%= button_to t(".sign_out"), sign_out_path, method: :delete %>
+    <% else -%>
+      <%= link_to t(".sign_in"), sign_in_path %>
+    <% end -%>
+  </div>
+
+  <div id="flash">
+    <% flash.each do |key, value| -%>
+      <div id="flash_<%= key %>"><%=h value %></div>
+    <% end %>
+  </div>
+<div class="container">
+  <%= yield %>
+</div>
+</body>
+</html>
