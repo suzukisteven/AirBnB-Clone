@@ -1,8 +1,8 @@
 <div class="jumbotron">
-  <h2 class="text-center"> Create a New Listing</h2>
+  <h2 class="text-center"> Edit Your Listing</h2>
 
   <div class="jumbotron">
-    <%= form_with scope: :listing, url: listings_path, local: true do |form| %>
+    <%= form_with scope: :listing, url: listing_path, method: :patch, local: true do |form| %>
     <div class="text-field">
       <%= form.label :title %>
       <%= form.text_field :title, class:"form-control"%></br>
@@ -26,7 +26,7 @@
     </div>
 
     <div>
-      <%= form.submit "Create Listing", class:"btn btn-success"%>
+      <%= form.submit "Update Listing", class:"btn btn-warning"%>
     </div>
     <% end %>
   </div>
