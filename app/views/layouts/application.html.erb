@@ -14,7 +14,11 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav mr-auto w-100 justify-content-end">
+      <form class="form-inline my-2 my-lg-0 w-100 justify-content-start">
+        <input class="form-control mr-sm-2" type="search" placeholder="Try 'Japan'" aria-label="Search">
+        <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
+      </form>
       <li class="nav-item active">
         <%= link_to "Home", root_path, class: "nav-link" %>
       </li>
@@ -29,23 +33,16 @@
         <%= link_to "Sign Up", sign_up_path, class: "nav-link" %>
       </li>
       <% end %>
+      <div id="header">
+        <% if signed_in? -%>
+        <%= button_to t(".sign_out"), sign_out_path, method: :delete, class:"btn btn-outline-danger my-2 my-sm-0"%>
+        <% else -%>
+        <%= link_to "Sign in with Google", "/auth/google_oauth2", class:"btn btn-outline-success my-2 my-sm-0" %>
+        <% end -%>
+      </div>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search..." aria-label="Search">
-      <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Login</button>
-    </form>
-
-    <%= link_to "Sign in with Google", "/auth/google_oauth2" %>
   </div>
 </nav>
-
-  <div id="header">
-    <% if signed_in? -%>
-      <%= button_to t(".sign_out"), sign_out_path, method: :delete %>
-    <% else -%>
-      <%= link_to t(".sign_in"), sign_in_path %>
-    <% end -%>
-  </div>
 
   <div id="flash">
     <% flash.each do |key, value| -%>
