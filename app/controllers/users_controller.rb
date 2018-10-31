@@ -1,4 +1,9 @@
 class UsersController < Clearance::UsersController
+
+  def profile
+    @user = current_user
+  end
+
   private
     def user_from_params
       email = user_params.delete(:email)

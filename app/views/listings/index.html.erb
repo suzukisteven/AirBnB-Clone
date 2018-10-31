@@ -1,15 +1,1 @@
-<h1 class="m-4">View Listings</h1>
-  <% @listings.each do |listing| %>
-  <div class="card d-inline-block m-3" style="width: 18rem;">
-    <img class="card-img-top" src="http://placehold.it/250x200">
-    <div class="card-body">
-      <h5 class="card-title"><%= listing.title %></h5>
-      <p class="card-text"><%= listing.description %></p>
-      <p class="card-text">Amenities: <%= listing.amenities %></p>
-      <p class="card-text">Price per Night: <%= listing.price %> RM</p>
-      <a href="#" class="btn btn-primary mb-3">Read More</a></br>
-      <%= link_to "Edit", edit_listing_path(listing.id), class: "btn btn-warning" %>
-      <%= link_to "Delete", listing_path(listing.id), class: "btn btn-danger", method: :delete %>
-    </div>
-  </div>
-  <% end %>
+<%= render partial: "all_listings" %>

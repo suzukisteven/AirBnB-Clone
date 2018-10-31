@@ -1,5 +1,6 @@
 class ListingsController < ApplicationController
     before_action :require_login
+    before_action :check_user, only: [:edit, :update, :destroy]
 
     def index
       @listings = Listing.all.order(:id)
@@ -39,5 +40,12 @@ class ListingsController < ApplicationController
     private
     def listing_params
       params.require(:listing).permit(:title, :description, :amenities, :price)
+    end
+
+    def check_user
+      @listing = Listing.find(params[:id])
+      if current_user.id != @listing.user_id
+        redirect_to listings_path
+      end
     end
 end

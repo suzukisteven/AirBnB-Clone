@@ -5,7 +5,8 @@
     <%= form_with scope: :listing, url: listings_path, local: true do |form| %>
     <div class="text-field">
       <%= form.label :title %>
-      <%= form.text_field :title, class:"form-control"%></br>
+      <%= form.text_field :title, class:"form-control"%>
+      <small id="emailHelp" class="form-text text-muted">*Maximum 20 characters</small></br>
     </div>
 
     <div class="text-area">
