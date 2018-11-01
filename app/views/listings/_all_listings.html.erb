@@ -1,6 +1,7 @@
 <h1 class="m-3">Show Listings</h1>
-  <% @listings.each do |listing| %>
-  <div class="card m-3 d-inline-block m-3" style="width: 18rem;">
+
+<% @listings.each do |listing| %>
+  <div class="card d-inline-block m-3" style="width: 18rem;">
     <div id="carouselExampleFade<%= listing.id %>" class="carousel slide carousel-fade" data-ride="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">
@@ -22,17 +23,23 @@
         <span class="sr-only">Next</span>
       </a>
     </div>
-    <!-- <img class="card-img-top" src="http://placehold.it/250x200"> -->
-      <div class="card-body">
-        <h5 class="card-title"><%= listing.title %></h5>
-        <p class="card-text"><%= listing.description %></p>
-        <p class="card-text"><strong>Amenities:</strong> <%= listing.amenities %></p>
-        <p class="card-text"><strong>Price per Night:</strong> <%= listing.price %> RM</p>
-        <a href="#" class="btn btn-primary mb-3">Read More</a></br>
-        <% if current_user.id == listing.user_id %>
-          <%= link_to "Edit this Listing", edit_listing_path(listing.id), class: "btn btn-warning" %>
-          <%= link_to "Delete", listing_path(listing.id), class: "btn btn-danger", method: :delete %>
-        <% end %>
-      </div>
+    <div class="card-body">
+      <h5 class="card-title"><%= listing.title %></h5>
+      <p class="card-text"><%= listing.description %></p>
+      <p class="card-text"><strong>Maximum Guests:</strong> <%= listing.maximum_guests %></p>
+      <p class="card-text"><strong>Price per Night:</strong> <%= listing.price_per_night %> RM</p>
+      <a href="#" class="btn btn-primary mb-3">Read More</a></br>
+      <% if current_user.id == listing.user_id %>
+        <%= link_to "Edit this Listing", edit_listing_path(listing.id), class: "btn btn-warning" %>
+        <%= link_to "Delete", listing_path(listing.id), class: "btn btn-danger", method: :delete %>
+      <% end %>
     </div>
+  </div>
+<% end %>
+<div class="container text-center">
+  <% count = 0 %>
+  <% @paginate_count.times do %>
+    <% count += 1 %>
+    <a class="text-center"href="/?page=<%= count %>"><%= count %></a> |
   <% end %>
+</div>

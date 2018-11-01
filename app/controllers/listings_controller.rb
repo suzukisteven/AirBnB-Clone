@@ -3,7 +3,15 @@ class ListingsController < ApplicationController
     before_action :check_user, only: [:edit, :update, :destroy]
 
     def index
+      p params[:page]
       @listings = Listing.all.order(:id)
+      @listingsPerPage = 10
+      @listingsCount = Listing.all.count
+      @paginate_count = (@listings.count/8).to_i
+        # byebug
+      if params[:page] == 1
+        @listings = @listings.first(10)
+      end
     end
 
     def create
