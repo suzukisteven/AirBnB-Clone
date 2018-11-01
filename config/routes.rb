@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   get "/profile" => "users#profile" #own dashboard
   get "/users/:id" => "users#show" #looking at someone else's profile - basic information
+  post "/verify/:id" => "listings#verify", as: "verify"
 
   get "/auth/:provider/callback" => "sessions#create_from_omniauth"
 

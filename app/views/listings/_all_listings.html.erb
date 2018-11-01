@@ -29,9 +29,16 @@
       <p class="card-text"><strong>Maximum Guests:</strong> <%= listing.maximum_guests %></p>
       <p class="card-text"><strong>Price per Night:</strong> <%= listing.price_per_night %> RM</p>
       <a href="#" class="btn btn-primary mb-3">Read More</a></br>
-      <% if current_user.id == listing.user_id %>
+      <% if current_user.id == listing.user_id || current_user.moderator? %>
         <%= link_to "Edit this Listing", edit_listing_path(listing.id), class: "btn btn-warning" %>
         <%= link_to "Delete", listing_path(listing.id), class: "btn btn-danger", method: :delete %>
+      <% end %>
+      <% if current_user.superadmin? %>
+        <% if listing.verified == false %>
+          <%= link_to "Verify", verify_path(listing.id), method: :post, class: "btn btn-success" %>
+        <% else %>
+          <%= link_to "Un-verify", verify_path(listing.id), method: :post, class: "btn btn-warning" %>
+        <% end %>
       <% end %>
     </div>
   </div>
