@@ -26,7 +26,7 @@
     <div class="card-body">
       <h5 class="card-title"><%= listing.title %></h5>
       <p class="card-text"><%= truncate(listing.description, length: 30) %></p>
-      <a href="#" class="btn btn-outline-primary btn-sm mb-3">See More</a></br>
+      <a href= "<%=listing_path(listing.id)%>" class="btn btn-outline-primary btn-sm mb-3">Read More</a></br>
       <p class="card-text"><i class="fas fa-users"></i> <strong>Maximum Guests:</strong> <%= listing.maximum_guests %></p>
       <p class="card-text"><i class="fas fa-dollar-sign"></i> <strong>Price per Night:</strong> <%= listing.price_per_night %> RM</p>
       <% if current_user.id == listing.user_id || current_user.moderator? %>

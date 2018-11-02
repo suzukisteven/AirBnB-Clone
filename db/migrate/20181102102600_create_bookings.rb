@@ -5,7 +5,7 @@ class CreateBookings < ActiveRecord::Migration[5.2]
       t.date :check_in
       t.date :check_out
 
-      t.belongs_to :users, :listings
+      t.belongs_to :user, :listing
 
       t.timestamps
     end

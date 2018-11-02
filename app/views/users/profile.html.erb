@@ -1,20 +1,4 @@
-
-<div class="container-fluid w-100 ml-0 h-100">
-  <!-- <div class="row flex-xl-nowrap">
-    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-      <div class="sidebar-sticky">
-        <ul class="nav flex-column">
-          <li class="nav-item">Home</li>
-          <li class="nav-item">About</li>
-          <li class="nav-item">Link</li>
-          <li class="nav-item">Link</li>
-          <li class="nav-item">Link</li>
-        </ul>
-      </div>
-    </nav>
-  </div> -->
-</div>
-<div class="">
+<div>
   <% if @user.avatars? %>
     <% @user.avatars.each do |avatar| %>
       <%= image_tag(avatar.url) %>
@@ -30,16 +14,15 @@
   <p><strong>First name: </strong><%= @user.first_name %></p>
   <p><strong>Last name: </strong><%= @user.last_name %></p>
   <% if @user.role == "superadmin" %>
-    <p><strong>Account Type: </strong><span class="badge badge-warning"><%= @user.role%></span></p>
+    <p><strong>Account Type: </strong><span class="badge badge-dark"><%= @user.role%></span></p>
     <% elsif @user.role == "moderator" %>
-      <p><strong>Account Type: </strong><span class="badge badge-success"><%= @user.role%></span></p>
+      <p><strong>Account Type: </strong><span class="badge badge-warning"><%= @user.role%></span></p>
     <% else %>
       <p><strong>Account Type: </strong><span class="badge badge-primary"><%= @user.role%></span></p>
   <% end %>
   <hr class="my-4">
   <a class="btn btn-danger btn-md disabled" href="#" role="button">Delete Profile (Disabled)</a>
 </div>
-
 <%= form_for @user do |form| %>
   <%= render partial: '/users/form', object: form %>
   <%= form.submit class:"btn btn-success" %>

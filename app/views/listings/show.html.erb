@@ -1,0 +1,19 @@
+<!-- Show Page for individual Listings  -->
+<div class="container mt-5">
+  <div class="jumbotron">
+    <h1><%= @listing.title %> </h1>
+    <h5><%= @listing.description %> </h4></br>
+    <hr class="my-4">
+    <h4><i class="fas fa-dollar-sign"></i> <strong>Price per night:</strong> <%= @listing.price_per_night %> RM</h4></br>
+    <h6><i class="fas fa-users"></i> <strong>Maximum Guests:</strong> <%= @listing.maximum_guests %></h6>
+    <h6><i class="fas fa-home"></i> <strong>Home Type:</strong> <%= @listing.home_type %></h6>
+    <h6><i class="fas fa-hotel"></i> <strong>Property Type:</strong> <%= @listing.property_type %></h6>
+    <h6><i class="fas fa-bed"></i> <strong>Bed(s):</strong> <%= @listing.beds %></h6>
+    <h6><i class="fas fa-toilet-paper"></i> <strong>Bathroom(s):</strong> <%= @listing.bathrooms %></h6>
+    <h6><i class="fas fa-coffee"></i> <strong>Amenities:</strong> <%= @listing.amenities %></h6>
+    <h6><i class="fas fa-hot-tub"></i> <strong>Shared Spaces:</strong> <%= @listing.shared_spaces %></h6>
+    <hr class="my-4">
+    <%= form_with scope: :listing, url: listings_path, local: true do |form| %>
+    <a href="#" class="btn btn-danger justify-content-end">Request Booking</a>
+  </div>
+</div>

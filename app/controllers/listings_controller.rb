@@ -1,11 +1,11 @@
 class ListingsController < ApplicationController
     before_action :require_login
-    before_action :set_listing, only: [:edit, :update, :destroy, :verify]
+    before_action :set_listing, only: [:show, :edit, :update, :destroy, :verify]
     before_action :check_user, only: [:edit, :update, :destroy]
     before_action :check_role, only: [:verify]
 
     def index
-      # Use will_paginate. don't be a masochist
+      # Use will_paginate. don't be a masochist.
       p params[:page]
       @listings = Listing.all.order(:id)
       @listingsPerPage = 10
@@ -17,12 +17,27 @@ class ListingsController < ApplicationController
       end
     end
 
+    def show
+    end
+
     def create
       @listing = Listing.new(listing_params)
       @listing.user_id = current_user.id
       if @listing.save
+        flash[:success] = "Successfully created a listing"
         redirect_to listings_path
+      else
+        @listing.errors.full_messages.each_with_index do |e,i|
+          key = "error" + i.to_s
+        flash[key] = e
+        end
+        redirect_to new_listing_path
       end
+      # flash[:error0] => "title_not null"
+      # flash[:error1] => "location not null"
+    end
+
+    def new
     end
 
     def edit
@@ -67,15 +82,19 @@ class ListingsController < ApplicationController
     end
 
     def listing_params
-      params.require(:listing).permit(:title, :description, :address,
-                                      :maximum_guests, :home_type, :room_type,
-                                      :price_per_night)
+      params.require(:listing).permit(:title, :description, :maximum_guests,
+                                      :price_per_night, :home_type, :property_type,
+                                      :country, :street_address, :room_number,
+                                      :city, :state, :zip_code, :beds, :bathrooms,
+                                      :property_type, :amenities, :shared_spaces  )
     end
 
     def check_user
       @listing = Listing.find(params[:id])
-      if current_user.id != @listing.user_id || current_user.moderator?
-        redirect_to listings_path
+      if @listing.user == current_user || current_user.moderator? || current_user.superadmin?
+      else
+          flash[:notice] = "Unauthorized"
+          redirect_to listings_path
       end
     end
 

@@ -19,10 +19,6 @@ class UsersController < Clearance::UsersController
       @user = User.find(params[:id])
     end
 
-    def user_params
-      params.require(:user).permit(:first_name, :last_name, :email)
-    end
-
     def user_from_params
       email = user_params.delete(:email)
       password = user_params.delete(:password)
@@ -36,11 +32,10 @@ class UsersController < Clearance::UsersController
         user.first_name = first_name
         user.last_name = last_name
         user.avatars = avatars
+      end
     end
-
     # def user_params
     #   # params.require(:user).permit(:first_name, :last_name, :email, {avatars: []})
     # end
 
-  end
 end

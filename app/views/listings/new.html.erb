@@ -1,60 +1,133 @@
-<div class="jumbotron">
-  <h2 class="text-center"> Create a New Listing</h2>
+<div class="jumbotron mt-3">
+  <h2 class="text-center"> Ready to be a host?</h2>
+  <em><h6 class="text-center"> Fill out the form below and our <span class="badge badge-warning">moderators</span> will get back to you once verified.</h6></em>
 
   <div class="jumbotron">
     <%= form_with scope: :listing, url: listings_path, local: true do |form| %>
-    <div class="text-field">
-      <%= form.label :title %>
-      <%= form.text_field :title, class:"form-control"%>
-      <small id="emailHelp" class="form-text text-muted">*Maximum 20 characters</small></br>
+    <hr class="my-4">
+    <h3>The Basics</h3></br>
+    <div class="text-field mb-3">
+      <%= form.label "Lets start with your home type:" %></br>
+      <%= form.select :home_type, [
+                                  "House", "Apartment",
+                                  "Secondary Unit", "Boutique Hotel",
+                                  "Bed & Breakfast", "Unique Space"
+                                  ],
+                                  class:"form-control" %></br>
     </div>
 
-    <div class="text-area">
-      <%= form.label :description %>
-      <%= form.text_area :description, class:"form-control", rows:"7" %></br>
+    <div class="text-field mb-3">
+      <%= form.label "What type of property is your home?" %></br>
+      <%= form.select :property_type, [
+                                  "House", "Apartment", "Bungalow",
+                                  "Cabin", "Casa Particular", "Chalet",
+                                  "Cottage", "Cycladic House", "Dammuso (Italy)",
+                                  "Dome House", "Earth House", "Farm Stay",
+                                  "Houseboat", "Hut", "Lighthouse", "Pension (South Korea)",
+                                  "Tiny Home", "Townhouse", "Villa"
+                                  ],
+                                  class:"form-control" %></br>
     </div>
+
+    <div class="text-field mb-3">
+      <%= form.label "How many guests can you accomodate?" %></br>
+      <%= form.select :maximum_guests, ["1", "2", "3",
+        "4", "5", "6",
+        "7", "8", "9",
+        "10", "11", "12",
+        "13", "14", "15",
+        "16", "17", "18",
+        "19", "20"
+      ],
+      class:"form-control" %></br>
+    </div>
+
+    <div class="text-field mb-3">
+      <%= form.label "How many beds can guests use?" %></br>
+      <%= form.select :beds, [
+                                  "1 Bed", "2 Beds", "3 Beds",
+                                  "4 Beds", "5 Beds", "6 Beds",
+                                  "7 Beds", "8 Beds", "9 Beds",
+                                  "10 Beds"
+                                  ],
+                                  class:"form-control" %></br>
+    </div>
+
+    <div class="text-field mb-3">
+      <%= form.label "How many bathrooms does your property have?" %></br>
+      <%= form.select :bathrooms, [
+                                  "1 Bathroom", "2 Bathrooms", "3 Bathrooms",
+                                  "4 Bathrooms", "5 Bathrooms", "6 Bathrooms",
+                                  "7 Bathrooms", "8 Bathrooms", "9 Bathrooms",
+                                  "10 Bathrooms"
+                                  ],
+                                  class:"form-control" %></br></br>
+    </div>
+    <hr class="my-4">
+    <h3>Location & Address</h3></br>
+    <div class="text-field mb-3">
+      <%= form.label "Select your Country:" %></br>
+      <%= form.select :country, [
+                                  "Malaysia", "Japan", "Singapore",
+                                  "Australia", "Canada", "Thailand",
+                                  "England", "France", "Italy",
+                                  "South Korea"
+                                  ],
+                                  class:"form-control" %></br>
+    </div>
+
+    <div class="text-field">
+      <%= form.label :street_address %>
+      <%= form.text_field :street_address, class:"form-control"%>
+    </div>
+
+    <div class="text-field">
+      <%= form.label :room_number %>
+      <%= form.text_field :room_number, class:"form-control"%>
+    </div>
+
+    <div class="text-field">
+      <%= form.label :city %>
+      <%= form.text_field :city, class:"form-control"%>
+    </div>
+
+    <div class="text-field">
+      <%= form.label :state %>
+      <%= form.text_field :state, class:"form-control"%>
+    </div>
+
+    <div class="text-field">
+      <%= form.label :zip_code %>
+      <%= form.text_field :zip_code, class:"form-control"%></br>
+    </div>
+    <hr class="my-4">
+    <h3>Amenities & Shared Spaces</h3></br>
+    <div class="text-field">
+      <%= form.label "What amenities will you offer your guests?" %>
+      <%= form.text_field :amenities, class:"form-control"%>
+    </div>
+
+    <div class="text-field">
+      <%= form.label "What shared spaces do you offer?" %>
+      <%= form.text_field :shared_spaces, class:"form-control"%></br>
+    </div>
+    <hr class="my-4">
+    <h3>Additional information</h3></br>
+    <div class="text-area">
+      <%= form.label "Write an interesting description about your property:" %>
+      <%= form.text_area :description, class:"form-control", rows:"7" %>
+      <small id="emailHelp" class="form-text text-muted">*Maximum 500 characters</small></br>
+    </div>
+
+    <div class="text-field">
+      <%= form.label "Come up with an interesting and creative title:" %>
+      <%= form.text_field :title, class:"form-control"%>
+      <small id="emailHelp" class="form-text text-muted">*Maximum 50 characters</small></br>
+    </div>
+
 
     <label for="formControlRange">Cost per Night:</label>
     <input type="range" class="form-control-range" id="formControlRange" min="1" max="1000" value="500"></br>
-
-    <div class="text-field">
-      <%= form.label :address %>
-      <%= form.text_field :address, class:"form-control" %></br>
-    </div>
-
-    <div class="text-field mb-3">
-      <%= form.label :maximum_guests %></br>
-      <%= form.select :maximum_guests, ["1", "2", "3",
-                                        "4", "5", "6",
-                                        "7", "8", "9",
-                                        "10", "11", "12",
-                                        "13", "14", "15"
-                                        ],
-                                        class:"form-control" %></br>
-    </div>
-
-    <div class="text-field mb-3">
-      <%= form.label :home_type %></br>
-      <%= form.select :home_type, [
-                                  "House", "Entire Floor", "Condominium",
-                                  "Villa", "Townhouse", "Castle",
-                                  "Treehouse", "Igloo", "Yurt",
-                                  "Cave", "Chalet", "Hut", "Tent",
-                                  "Other (Please Specify)"
-                                  ],
-                                  class:"form-control" %></br>
-    </div>
-
-    <div class="text-field mb-3">
-      <%= form.label :room_type %></br>
-      <%= form.select :room_type, [
-                                  "Master", "Bedroom", "Study",
-                                  "Basement", "Triple", "Double",
-                                  "Single", "Queen", "King",
-                                  "Other (Please Specify)"
-                                  ],
-                                  class:"form-control" %></br>
-    </div>
 
     <div class="text-field">
       <%= form.label :price_per_night %>

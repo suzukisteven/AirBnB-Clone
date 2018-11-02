@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_02_102600) do
+ActiveRecord::Schema.define(version: 2018_11_02_102601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,12 +29,12 @@ ActiveRecord::Schema.define(version: 2018_11_02_102600) do
     t.integer "guests_count"
     t.date "check_in"
     t.date "check_out"
-    t.bigint "users_id"
-    t.bigint "listings_id"
+    t.bigint "user_id"
+    t.bigint "listing_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["listings_id"], name: "index_bookings_on_listings_id"
-    t.index ["users_id"], name: "index_bookings_on_users_id"
+    t.index ["listing_id"], name: "index_bookings_on_listing_id"
+    t.index ["user_id"], name: "index_bookings_on_user_id"
   end
 
   create_table "listings", force: :cascade do |t|
@@ -43,20 +43,29 @@ ActiveRecord::Schema.define(version: 2018_11_02_102600) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "address"
     t.integer "maximum_guests"
     t.string "home_type"
-    t.string "room_type"
     t.decimal "price_per_night"
     t.boolean "verified", default: false
+    t.string "country"
+    t.string "street_address"
+    t.string "room_number"
+    t.string "city"
+    t.string "state"
+    t.integer "zip_code"
+    t.integer "beds"
+    t.integer "bathrooms"
+    t.string "property_type"
+    t.string "amenities"
+    t.string "shared_spaces"
     t.index ["user_id"], name: "index_listings_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "first_name", null: false
-    t.string "last_name", null: false
+    t.string "first_name"
+    t.string "last_name"
     t.string "email", null: false
     t.string "encrypted_password", limit: 128, null: false
     t.string "confirmation_token", limit: 128
