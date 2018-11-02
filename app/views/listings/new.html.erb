@@ -22,45 +22,54 @@
       <%= form.text_field :address, class:"form-control" %></br>
     </div>
 
-    <div class="text-field">
-      <%= form.label :availability_from %>
-      <%= form.text_field :availability_from, class:"form-control" %></br>
+    <div class="text-field mb-3">
+      <%= form.label :maximum_guests %></br>
+      <%= form.select :maximum_guests, ["1", "2", "3",
+                                        "4", "5", "6",
+                                        "7", "8", "9",
+                                        "10", "11", "12",
+                                        "13", "14", "15"
+                                        ],
+                                        class:"form-control" %></br>
     </div>
 
-    <div class="text-field">
-      <%= form.label :availability_to %>
-      <%= form.text_field :availability_to, class:"form-control" %></br>
+    <div class="text-field mb-3">
+      <%= form.label :home_type %></br>
+      <%= form.select :home_type, [
+                                  "House", "Entire Floor", "Condominium",
+                                  "Villa", "Townhouse", "Castle",
+                                  "Treehouse", "Igloo", "Yurt",
+                                  "Cave", "Chalet", "Hut", "Tent",
+                                  "Other (Please Specify)"
+                                  ],
+                                  class:"form-control" %></br>
     </div>
 
-    <div class="text-field">
-      <%= form.label :maximum_guests %>
-      <%= form.text_field :maximum_guests, class:"form-control" %></br>
-    </div>
-
-    <div class="text-field">
-      <%= form.label :home_type %>
-      <%= form.text_field :home_type, class:"form-control" %></br>
-    </div>
-
-    <div class="text-field">
-      <%= form.label :room_type %>
-      <%= form.text_field :room_type, class:"form-control" %></br>
+    <div class="text-field mb-3">
+      <%= form.label :room_type %></br>
+      <%= form.select :room_type, [
+                                  "Master", "Bedroom", "Study",
+                                  "Basement", "Triple", "Double",
+                                  "Single", "Queen", "King",
+                                  "Other (Please Specify)"
+                                  ],
+                                  class:"form-control" %></br>
     </div>
 
     <div class="text-field">
       <%= form.label :price_per_night %>
       <%= form.text_field :price_per_night, class:"form-control" %></br>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :upload_image %></br>
+      <%= form.file_field :image %>
     </div>
 
     <div>
       <%= form.submit "Create Listing", class:"btn btn-success"%>
     </div>
 
-    <div>
-      <%= form.label :price_per_night %>
-      <%= form.text_field :price_per_night, class:"form-control" %></br>
-      <%= options_for_select([["Dollar", "$"], ["Kroner", "DKK"]]) %>
-    </div>
     <% end %>
   </div>
 

@@ -1,9 +1,11 @@
 class ListingsController < ApplicationController
     before_action :require_login
+    before_action :set_listing, only: [:edit, :update, :destroy, :verify]
     before_action :check_user, only: [:edit, :update, :destroy]
     before_action :check_role, only: [:verify]
 
     def index
+      # Use will_paginate. don't be a masochist
       p params[:page]
       @listings = Listing.all.order(:id)
       @listingsPerPage = 10
@@ -24,11 +26,9 @@ class ListingsController < ApplicationController
     end
 
     def edit
-      @listing = Listing.find(params[:id])
     end
 
     def update
-      @listing = Listing.find(params[:id])
       @listing.update(listing_params)
       if @listing.save
         redirect_to listings_path
@@ -38,7 +38,6 @@ class ListingsController < ApplicationController
     end
 
     def destroy
-      @listing = Listing.find(params[:id])
       if @listing.destroy
         redirect_to listings_path
       else
@@ -47,25 +46,30 @@ class ListingsController < ApplicationController
     end
 
     def verify
-      @listing = Listing.find(params[:id])
       if @listing.verified
         @listing.update(verified: false)
-
       else
         @listing.update(verified: true)
       end
       if @listing.save
-        flash[:success] = "Verifed/Unverified"
+        flash[:success] = "Successfully Verifed/Unverified"
         redirect_to listings_path
       else
-          flash[:error] = "Failed to verify/unverify"
-          redirect_back(fallback_url: listings_path)
+        flash[:error] = "Failed to verify/unverify"
+        redirect_back(fallback_url: listings_path)
       end
     end
 
     private
+
+    def set_listing
+      @listing = Listing.find(params[:id])
+    end
+
     def listing_params
-      params.require(:listing).permit(:title, :description, :amenities, :price)
+      params.require(:listing).permit(:title, :description, :address,
+                                      :maximum_guests, :home_type, :room_type,
+                                      :price_per_night)
     end
 
     def check_user

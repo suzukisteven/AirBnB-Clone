@@ -30,6 +30,11 @@ gem "omniauth-google-oauth2", "~> 0.2.1"
 gem "figaro"
 # Add Faker
 gem 'faker'
+# Image uploading
+gem 'carrierwave', '~> 1.0'
+# Image Editing
+gem "mini_magick"
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password

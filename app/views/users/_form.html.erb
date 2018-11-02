@@ -18,4 +18,10 @@
     <%= form.label :last_name%>
     <%= form.text_field :last_name, class:"form-control" %>
   </div>
+
+  <div class="mb-3">
+    <%= form.label :upload_image %></br>
+    <%= form.file_field :avatars, multiple: true %>
+  </div>
+
 </div>
