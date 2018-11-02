@@ -3,6 +3,7 @@ class Booking < ApplicationRecord
   belongs_to :listing
   validate :check_overlap_dates
   validate :check_guest_count
+  validates :check_in, :check_out, :guests_count, presence: true
 
   def check_overlap_dates
 
@@ -10,7 +11,7 @@ class Booking < ApplicationRecord
     current_booking.each do |booking|
 
       if (self.check_in..self.check_out).overlaps?(booking.check_in..booking.check_out) && booking != self
-        errors.add(:check_in, "already has a pre-existing booking in this range.")
+        errors.add(:check_in, "already has a booking in this date range.")
       end
     end
   end

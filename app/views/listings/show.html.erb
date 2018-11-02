@@ -1,10 +1,15 @@
 <!-- Show Page for individual Listings  -->
-<div class="container mt-5">
+<div class="container mt-3">
   <div class="jumbotron">
     <h1><%= @listing.title %> </h1>
-    <h5><%= @listing.description %> </h4></br>
+    <h5><i class="fas fa-map-marked-alt"></i> <strong>Country/Region: </strong> <%= @listing.city %>, <%= @listing.country %>
+    <% if @listing.verified == true %>
+      <h3 class=><span class="badge badge-success mb-5">Verified</span></h3>
+    <% end %>
+  </h5>
+    <h6><%= @listing.description %> </h4></br>
+    <h4><i class="fas fa-dollar-sign"></i> <strong>Price per night:</strong> <%= @listing.price_per_night %>0 RM</h4></br>
     <hr class="my-4">
-    <h4><i class="fas fa-dollar-sign"></i> <strong>Price per night:</strong> <%= @listing.price_per_night %> RM</h4></br>
     <h6><i class="fas fa-users"></i> <strong>Maximum Guests:</strong> <%= @listing.maximum_guests %></h6>
     <h6><i class="fas fa-home"></i> <strong>Home Type:</strong> <%= @listing.home_type %></h6>
     <h6><i class="fas fa-hotel"></i> <strong>Property Type:</strong> <%= @listing.property_type %></h6>
@@ -13,7 +18,7 @@
     <h6><i class="fas fa-coffee"></i> <strong>Amenities:</strong> <%= @listing.amenities %></h6>
     <h6><i class="fas fa-hot-tub"></i> <strong>Shared Spaces:</strong> <%= @listing.shared_spaces %></h6>
     <hr class="my-4">
-    <h3>Make a Reservation</h3></br>
+    <h3>Like this? Request for a Booking.</h3></br>
     <%= form_with url: bookings_path(listing_id: @listing.id), local: true do |form| %>
 
       <div class="text-field">

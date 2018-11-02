@@ -2,7 +2,7 @@ class PagesController < ApplicationController
 
   def index
     @title = "Welcome to ScamBnB"
-    @description = "\"Bring everything, leave with nothing\""
+    @description = "Bring everything. Leave with nothing."
     p params[:page]
     @listings = Listing.all.order(:id)
     @paginate_count = (@listings.count/8).to_i
