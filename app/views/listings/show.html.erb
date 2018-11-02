@@ -13,7 +13,36 @@
     <h6><i class="fas fa-coffee"></i> <strong>Amenities:</strong> <%= @listing.amenities %></h6>
     <h6><i class="fas fa-hot-tub"></i> <strong>Shared Spaces:</strong> <%= @listing.shared_spaces %></h6>
     <hr class="my-4">
-    <%= form_with scope: :listing, url: listings_path, local: true do |form| %>
-    <a href="#" class="btn btn-danger justify-content-end">Request Booking</a>
+    <h3>Make a Reservation</h3></br>
+    <%= form_with url: bookings_path(listing_id: @listing.id), local: true do |form| %>
+
+      <div class="text-field">
+        <%= form.label "Check-in Date:" %>
+        <%= form.date_field :check_in, class:"datePicker form-control", placeholder:"Select your check-in date"%></br>
+      </div>
+
+      <div class="text-field">
+        <%= form.label "Check-out Date:" %>
+        <%= form.date_field :check_out, class:"datePicker form-control", placeholder:"Select your check-out date"%></br>
+      </div>
+
+      <div class="text-field mb-3">
+        <%= form.label "Number of Guests:" %></br>
+        <%= form.select :guests_count, ["1", "2", "3",
+                                        "4", "5", "6",
+                                        "7", "8", "9",
+                                        "10", "11", "12",
+                                        "13", "14", "15",
+                                        "16", "17", "18",
+                                        "19", "20"
+                                      ],
+                                      class:"form-control" %></br>
+      </div>
+
+      <div>
+        <%= form.submit "Request Booking", class:"btn btn-danger"%>
+      </div>
+
+    <% end %>
   </div>
 </div>

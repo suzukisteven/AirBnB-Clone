@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <%= stylesheet_link_tag    'application' %>
   <%= stylesheet_link_tag    'https://use.fontawesome.com/releases/v5.4.2/css/all.css' %>
   <%= stylesheet_link_tag    'https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css' %>
   <%= stylesheet_link_tag    'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css'%>
 
-  <%= javascript_include_tag 'application' %>
-  <%= javascript_include_tag 'https://code.jquery.com/jquery-3.3.1.slim.min.js' %>
+  <%= javascript_include_tag "https://code.jquery.com/jquery-3.3.1.js" %>
   <%= javascript_include_tag 'https://cdn.jsdelivr.net/npm/flatpickr' %>
   <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js' %>
   <%= javascript_include_tag 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js' %>
+
+  <%= stylesheet_link_tag    'application' %>
+  <%= javascript_include_tag 'application' %>
 
   <%= csrf_meta_tag %>
   <title>ScamBnB | Book your dream vacation.</title>
