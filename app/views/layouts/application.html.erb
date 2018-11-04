@@ -10,7 +10,7 @@
   <%= javascript_include_tag 'https://cdn.jsdelivr.net/npm/flatpickr' %>
   <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js' %>
   <%= javascript_include_tag 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js' %>
-
+  <!-- Load external CDN's first, then load local application -->
   <%= stylesheet_link_tag    'application' %>
   <%= javascript_include_tag 'application' %>
 
@@ -23,7 +23,7 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
+    <!-- Use justify-content-between for this layout -->
     <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
       <ul class="navbar-nav">
         <form class="form-inline">

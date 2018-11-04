@@ -1,5 +1,5 @@
 <div class="container">
-  <div>
+  <div class="rounded-circle">
     <% if @user.avatars? %>
       <% @user.avatars.each do |avatar| %>
         <%= image_tag(avatar.url) %>
