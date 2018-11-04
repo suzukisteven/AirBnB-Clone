@@ -6,8 +6,8 @@ class ListingsController < ApplicationController
 
     def index
       # Use will_paginate. don't be a masochist.
-      p params[:page]
-      @listings = Listing.all.order(:id)
+      # p params[:page]
+      @listings = Listing.all.order(created_at: :desc)
       @listingsPerPage = 10
       @listingsCount = Listing.all.count
       @paginate_count = (@listings.count/8).to_i
@@ -24,7 +24,7 @@ class ListingsController < ApplicationController
       @listing = Listing.new(listing_params)
       @listing.user_id = current_user.id
       if @listing.save
-        flash[:success] = "Successfully created a listing"
+        flash[:success] = "You listing was successfully created"
         redirect_to listings_path
       else
         @listing.errors.full_messages.each_with_index do |e,i|
@@ -66,12 +66,10 @@ class ListingsController < ApplicationController
       else
         @listing.update(verified: true)
       end
+
       if @listing.save
-        flash[:success] = "Successfully Verifed/Unverified"
+        flash[:success] = "Listing was successfully Verifed/Unverified"
         redirect_to listings_path
-      else
-        flash[:error] = "Failed to verify/unverify"
-        redirect_back(fallback_url: listings_path)
       end
     end
 
@@ -86,20 +84,21 @@ class ListingsController < ApplicationController
                                       :price_per_night, :home_type, :property_type,
                                       :country, :street_address, :room_number,
                                       :city, :state, :zip_code, :beds, :bathrooms,
-                                      :property_type, :amenities, :shared_spaces)
+                                      :property_type, amenities:[], shared_spaces:[])
     end
 
     def check_user
       @listing = Listing.find(params[:id])
       if @listing.user == current_user || current_user.moderator? || current_user.superadmin?
       else
-          flash[:notice] = "Unauthorized"
+          flash[:alert] = "You are not authorized to perform that action."
           redirect_to listings_path
       end
     end
 
     def check_role
       if current_user.customer?
+        flash[:alert] = "You are not authorized to perform that action."
         redirect_to listings_path
       end
     end

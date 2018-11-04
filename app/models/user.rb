@@ -2,6 +2,7 @@ class User < ApplicationRecord
   include Clearance::User
 
   has_many :listings, dependent: :destroy
+  has_many :bookings, dependent: :destroy
   has_many :authentications, dependent: :destroy
 
   enum role: [:customer, :moderator, :superadmin]
@@ -9,7 +10,7 @@ class User < ApplicationRecord
   mount_uploaders :avatars, AvatarUploader
   # Enum refers to the Ruby class we're using
   # role is the attribute we're going to treat as an enum
-  # :customer etc, names we're using to reference users role
+  # :customer etc, names we're using to reference a users role
 
   # for every new account set default role to :customer
   after_initialize do

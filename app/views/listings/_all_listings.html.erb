@@ -1,8 +1,8 @@
-<h1 class="m-3">Show Listings</h1>
+<h1 class="m-3">Recent Listings</h1>
 
   <% @listings.each do |listing| %>
   <div class="card-deck d-inline-block m-2">
-    <div class="card" style="width: 18rem;">
+    <div class="card border-0" style="width: 18.5rem;">
 
       <div id="carouselExampleFade<%= listing.id %>" class="carousel slide carousel-fade" data-ride="carousel">
         <div class="carousel-inner">
@@ -27,31 +27,42 @@
       </div>
 
       <div class="card-body">
-        <h5 class="card-title"><%= listing.title %></h5>
-        <p class="card-text"><%= truncate(listing.description, length: 50) %></p>
-        <a href= "<%=listing_path(listing.id)%>" class="btn btn-outline-primary btn-sm mb-3">Read More</a></br>
-        <p class="card-text"><i class="fas fa-users"></i> <strong>Max Guests:</strong> <%= listing.maximum_guests %></p>
-        <p class="card-text"><i class="fas fa-dollar-sign"></i> <strong>Price per Night:</strong> <%= listing.price_per_night %>0 RM</p>
-        <% if current_user.id == listing.user_id || current_user.moderator? %>
-          <%= link_to "Edit", edit_listing_path(listing.id), class: "btn btn-warning btn-sm" %>
-          <%= link_to "Delete", listing_path(listing.id), class: "btn btn-danger btn-sm", method: :delete %>
-        <% end %>
-        <% if current_user.superadmin? %>
-          <% if listing.verified == false %>
-            <%= link_to "Verify", verify_path(listing.id), method: :post, class: "btn btn-success btn-sm mt-3 d-inline" %>
-        <% else %>
-          <%= link_to "Un-verify", verify_path(listing.id), method: :post, class: "btn btn-dark btn-sm mt-3" %>
+        <div class="d-flex">
+          <h5 class="card-title d-inline-block"><%= truncate(listing.title, length: 20) %></h5>
+          <% if listing.verified == true %>
+            <span class="badge badge-success d-inline-block h-100 mt-1 ml-2">Verified</span>
           <% end %>
+        </div>
+        <p class="card-text" style="font-size: 14px;"><%= truncate(listing.property_type, length: 75) %></p>
+
+        <div class="d-flex">
+          <a href= "<%=listing_path(listing.id)%>" class="btn btn-outline-primary btn-sm mb-3 d-inline">Read More</a></br>
+          <% if current_user.superadmin? %>
+            <% if listing.verified == false %>
+              <%= link_to "Verify", verify_path(listing.id), method: :post, class: "btn btn-success btn-sm d-inline ml-2 h-100" %>
+            <% else %>
+              <%= link_to "Un-verify", verify_path(listing.id), method: :post, class: "btn btn-dark btn-sm d-inline ml-2 h-100" %>
+            <% end %>
+          <% end %>
+        </div>
+
+        <p class="card-text"><i class="fas fa-dollar-sign"></i> <strong>Price per Night:</strong> <%= listing.price_per_night %>0 RM</p>
+        <p class="card-text"><i class="fas fa-users"></i> <strong>Max Guests:</strong> <%= listing.maximum_guests %></p>
+        <% if current_user.id == listing.user_id || current_user.moderator? %>
+          <%= link_to "Edit", edit_listing_path(listing.id), class: "btn btn-warning btn-sm mr-1" %>
+          <%= link_to "Delete", listing_path(listing.id), class: "btn btn-danger btn-sm", method: :delete, :data => {:confirm => 'Are you sure you want to cancel this listing?'} %>
         <% end %>
       </div>
     </div>
   </div>
   <% end %>
 
-<div class="container text-center">
-  <% count = 0 %>
-  <% @paginate_count.times do %>
-    <% count += 1 %>
-    <a class="text-center"href="/?page=<%= count %>"><%= count %></a> |
-  <% end %>
+<div class="container d-flex justify-content-center mb-3">
+  <div>
+    <% count = 0 %>
+    <% @paginate_count.times do %>
+      <% count += 1 %>
+      <a class="text-center" href="/?page=<%= count %>">Page <%= count %></a> |
+    <% end %>
+  </div>
 </div>

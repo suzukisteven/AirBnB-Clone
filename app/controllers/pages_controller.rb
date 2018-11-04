@@ -1,11 +1,13 @@
 class PagesController < ApplicationController
 
   def index
-    @title = "Welcome to ScamBnB"
-    @description = "Bring everything. Leave with nothing."
-    p params[:page]
-    @listings = Listing.all.order(:id)
+
+    @title = "ScamBnB"
+    @description = "Bring everything, Leave with nothing."
+    @listings = Listing.all.order(created_at: :desc)
     @paginate_count = (@listings.count/8).to_i
+    # p params[:page]
+
     if params[:page]
       multiplier = params[:page].to_i - 1
       start = multiplier * 8
@@ -13,6 +15,7 @@ class PagesController < ApplicationController
     else
       @listings
     end
+
   end
 
 end

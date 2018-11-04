@@ -1,26 +1,77 @@
-<div>
-  <% if @user.avatars? %>
-    <% @user.avatars.each do |avatar| %>
-      <%= image_tag(avatar.url) %>
+<div class="container">
+  <div>
+    <% if @user.avatars? %>
+      <% @user.avatars.each do |avatar| %>
+        <%= image_tag(avatar.url) %>
+      <% end %>
     <% end %>
-  <% end %>
-</div>
+  </div>
 
-<div class="jumbotron mt-3">
-  <h1 class="display-4">Hello, <em><%= @user.first_name %> <%= @user.last_name %></em></h1>
-  <p class="lead">Welcome to your profile dashboard. You can <strong>view and edit your current listings and bookings</strong>, as well as <strong>edit your account information.</strong></p>
-  <hr class="my-4">
-  <% if @user.role == "superadmin" %>
-  <p><strong>Account Level: </strong><span class="badge badge-dark"><%= @user.role%></span></p>
-  <% elsif @user.role == "moderator" %>
-  <p><strong>Account Level: </strong><span class="badge badge-warning"><%= @user.role%></span></p>
-  <% else %>
-  <p><strong>Account Level: </strong><span class="badge badge-primary"><%= @user.role%></span></p>
-  <% end %>
-  <%= form_for @user do |form| %>
-  <%= render partial: '/users/form', object: form %>
-  <% end %>
-  <!-- <p><strong>Email Address: </strong><%= @user.email %></p>
-  <p><strong>First name: </strong><%= @user.first_name %></p>
-  <p><strong>Last name: </strong><%= @user.last_name %></p> -->
+  <div class="jumbotron mt-3 border border-dark">
+    <h1 class="display-4">Hello, <em><%= @user.first_name %> <%= @user.last_name %></em></h1>
+    <p class="lead">Welcome to your dashboard. You can <strong>view and edit your current listings and bookings</strong>, and <strong>edit your account information.</strong></p>
+    <hr class="my-4">
+    <% if @user.role == "superadmin" %>
+      <p><strong>Account Level: </strong><span class="badge badge-dark"><%= @user.role%></span></p>
+    <% elsif @user.role == "moderator" %>
+      <p><strong>Account Level: </strong><span class="badge badge-warning"><%= @user.role%></span></p>
+    <% else %>
+      <p><strong>Account Level: </strong><span class="badge badge-primary"><%= @user.role%></span></p>
+    <% end %>
+
+    <%= form_for @user do |form| %>
+      <%= render partial: '/users/form', object: form %>
+    <% end %>
+  </div>
+
+  <div class="jumbotron border border-dark">
+    <h1 class="mb-4">My Listings</h1>
+    <% if current_user.listings != [] %>
+      <% current_user.listings.each_with_index do |listing, i| %>
+        <div class="card mb-3 border border-info">
+          <div class="card-header">
+            <p><strong>Listing <%= i+1 %></strong></p>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title"><%= listing.title %></h5>
+            <p class="card-text"><%= listing.description %></p>
+            <p class="card-text">RM <%= listing.price_per_night %>0</p>
+            <%= link_to "Edit", edit_listing_path(listing.id), class: "btn btn-warning btn-sm mr-1" %>
+            <%= link_to "Delete", listing_path(listing.id), class: "btn btn-danger btn-sm mr-1", method: :delete, :data => {:confirm => 'Are you sure you want to delete your listing?'} %>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+    <div class="container text-center">
+      <h5 class="text-center">You don't seem to have any listings yet.</h5>
+    </div>
+    <% end %>
+  </div>
+
+  <div class="jumbotron border border-dark">
+    <h1 class="mb-4">My Bookings</h1>
+    <% if current_user.bookings != [] %>
+      <% current_user.bookings.each_with_index do |booking, i| %>
+        <div class="card mb-3 w-25 mr-3 d-inline-block border border-dark">
+          <div class="card-header bg-dark text-center text-white">
+            <h5><strong>Booking <%= i+1 %></strong></h5>
+          </div>
+          <div class="card-body text-center">
+            <h5 class="card-title"><%= @listing[i].title %></h5>
+            <p class="card-text"><%= @listing[i].city %>, <%= @listing[i].country%></p>
+            <p><strong>Check-in:</strong> <%= booking.check_in %></p>
+            <p><strong>Check-out:</strong> <%= booking.check_out %></p>
+            <p><strong>Guests:</strong> <%= booking.guests_count %></p>
+            <div class="container d-flex justify-content-center">
+              <%= link_to "Cancel this Booking", booking_path(booking.id), class:"btn btn-danger", method: :delete, :data => {:confirm => 'Are you sure you want to cancel your booking?'} %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="container text-center">
+        <h5 class="text-center">You don't seem to have any bookings yet.</h5>
+      </div>
+    <% end %>
+  </div>
 </div>

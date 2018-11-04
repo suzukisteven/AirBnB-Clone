@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
   # Current Users profile page
   get "/profile" => "users#profile" #own dashboard
+  get "/profile/:id" => "users#profile/:id"
 
   # Get/Show create a listing page
   get "/listings/new" => "listings#new"

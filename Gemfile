@@ -34,6 +34,8 @@ gem 'faker'
 gem 'carrierwave', '~> 1.0'
 # Image Editing
 gem "mini_magick"
+# Search Bar
+gem 'pg_search'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'

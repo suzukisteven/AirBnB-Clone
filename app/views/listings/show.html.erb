@@ -1,53 +1,62 @@
 <!-- Show Page for individual Listings  -->
 <div class="container mt-3">
-  <div class="jumbotron">
-    <h1><%= @listing.title %> </h1>
-    <h5><i class="fas fa-map-marked-alt"></i> <strong>Country/Region: </strong> <%= @listing.city %>, <%= @listing.country %>
-    <% if @listing.verified == true %>
-      <h3 class=><span class="badge badge-success mb-5">Verified</span></h3>
-    <% end %>
-  </h5>
-    <h6><%= @listing.description %> </h4></br>
+  <div class="jumbotron border border-dark">
+    <h6> <%= @listing.property_type.upcase %></h6>
+    <div class="d-flex" style="height: 50px;">
+      <h1 class="d-inline-block"> <%= @listing.title %> </h1>
+      <% if @listing.verified == true %>
+        <h3 class="h-25 d-inline-block ml-3 mt-2"><span class="badge badge-success mb-5">Verified</span></h3>
+      <% end %>
+    </div>
+    <h5 class="mt-2 mb-4"><i class="fas fa-map-marked-alt"></i> <strong>Country/Region: </strong> <%= @listing.city %>, <%= @listing.country %></h5>
+    <h6><%= @listing.description %> </h6></br>
     <h4><i class="fas fa-dollar-sign"></i> <strong>Price per night:</strong> <%= @listing.price_per_night %>0 RM</h4></br>
     <hr class="my-4">
-    <h6><i class="fas fa-users"></i> <strong>Maximum Guests:</strong> <%= @listing.maximum_guests %></h6>
-    <h6><i class="fas fa-home"></i> <strong>Home Type:</strong> <%= @listing.home_type %></h6>
-    <h6><i class="fas fa-hotel"></i> <strong>Property Type:</strong> <%= @listing.property_type %></h6>
-    <h6><i class="fas fa-bed"></i> <strong>Bed(s):</strong> <%= @listing.beds %></h6>
-    <h6><i class="fas fa-toilet-paper"></i> <strong>Bathroom(s):</strong> <%= @listing.bathrooms %></h6>
-    <h6><i class="fas fa-coffee"></i> <strong>Amenities:</strong> <%= @listing.amenities %></h6>
-    <h6><i class="fas fa-hot-tub"></i> <strong>Shared Spaces:</strong> <%= @listing.shared_spaces %></h6>
+    <div class="container d-flex justify-content-center">
+      <div class="d-inline-block mr-5">
+        <h5><i class="fas fa-users"></i> <strong>Maximum Guests:</strong> <%= @listing.maximum_guests %></h5>
+        <h5><i class="fas fa-home"></i> <strong>Home Type:</strong> <%= @listing.home_type %></h5>
+        <h5><i class="fas fa-bed"></i> <strong>Bed(s):</strong> <%= @listing.beds %></h5>
+        <h5><i class="fas fa-bath"></i> <strong>Bathroom(s):</strong> <%= @listing.bathrooms %></h5>
+      </div>
+      <div class="d-inline-block">
+        <h5><i class="fas fa-wine-glass-alt"></i> <strong>Amenities:</strong> <%= @listing.amenities %></h5>
+        <h5><i class="fas fa-hot-tub"></i> <strong>Shared Spaces:</strong> <%= @listing.shared_spaces %></h5>
+      </div>
+    </div>
     <hr class="my-4">
-    <h3>Like this? Request for a Booking.</h3></br>
-    <%= form_with url: bookings_path(listing_id: @listing.id), local: true do |form| %>
+    <h3 class="text-center">Like this? Request for a Booking.</h3></br>
+    <div class="text-center d-flex justify-content-center">
 
-      <div class="text-field">
-        <%= form.label "Check-in Date:" %>
-        <%= form.date_field :check_in, class:"datePicker form-control", placeholder:"Select your check-in date"%></br>
-      </div>
+      <%= form_with url: bookings_path(listing_id: @listing.id), local: true do |form| %>
+        <div class="text-field">
+          <%= form.label "When do you want to check-in?" %>
+          <%= form.date_field :check_in, class:"datePicker border border-primary text-center form-control", placeholder:"Select your check-in date"%></br>
+        </div>
 
-      <div class="text-field">
-        <%= form.label "Check-out Date:" %>
-        <%= form.date_field :check_out, class:"datePicker form-control", placeholder:"Select your check-out date"%></br>
-      </div>
+        <div class="text-field" style="width: 300px;">
+          <%= form.label "When do you want to check-out?" %>
+          <%= form.date_field :check_out, class:"datePicker border border-primary text-center form-control", placeholder:"Select your check-out date"%></br>
+        </div>
 
       <div class="text-field mb-3">
         <%= form.label "Number of Guests:" %></br>
         <%= form.select :guests_count, ["1", "2", "3",
-                                        "4", "5", "6",
-                                        "7", "8", "9",
-                                        "10", "11", "12",
-                                        "13", "14", "15",
-                                        "16", "17", "18",
-                                        "19", "20"
-                                      ],
-                                      class:"form-control" %></br>
+          "4", "5", "6",
+          "7", "8", "9",
+          "10", "11", "12",
+          "13", "14", "15",
+          "16", "17", "18",
+          "19", "20"
+        ],
+        class:"form-control" %></br>
       </div>
 
       <div>
         <%= form.submit "Request Booking", class:"btn btn-danger"%>
       </div>
 
-    <% end %>
+      <% end %>
+    </div>
   </div>
 </div>

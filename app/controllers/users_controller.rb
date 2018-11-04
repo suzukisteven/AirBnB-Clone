@@ -3,7 +3,10 @@ class UsersController < Clearance::UsersController
 
   def profile
     @user = current_user
+    @booking = current_user.bookings
+    @listing = current_user.listings
   end
+
 
   def update
     @user = User.find(params[:id])
