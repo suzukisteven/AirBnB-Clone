@@ -1,13 +1,11 @@
 <div class="container">
-  <div class="rounded-circle">
-    <% if @user.avatars? %>
-      <% @user.avatars.each do |avatar| %>
-        <%= image_tag(avatar.url) %>
-      <% end %>
-    <% end %>
-  </div>
 
   <div class="jumbotron mt-3 border border-dark">
+    <div class="rounded-circle card-img-top">
+      <% if @user.avatar? %>
+        <img src="<%= @user.avatar.url %>" alt="" class="rounded-circle w-25">
+      <% end %>
+    </div>
     <h1 class="display-4">Hello, <em><%= @user.first_name %> <%= @user.last_name %></em></h1>
     <p class="lead">Welcome to your dashboard. You can <strong>view and edit your current listings and bookings</strong>, and <strong>edit your account information.</strong></p>
     <hr class="my-4">

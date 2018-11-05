@@ -11,6 +11,7 @@
     <h5 class="mt-2 mb-4"><i class="fas fa-map-marked-alt"></i> <strong>Country/Region: </strong> <%= @listing.city %>, <%= @listing.country %></h5>
     <h6><%= @listing.description %> </h6></br>
     <h4><i class="fas fa-dollar-sign"></i> <strong>Price per night:</strong> <%= @listing.price_per_night %>0 RM</h4></br>
+    <%= link_to "Review this listing", new_listing_review_path(listing_id: @listing.id), class:"btn btn-warning" %>
     <hr class="my-4">
     <div class="container d-flex justify-content-center">
       <div class="d-inline-block mr-5">
@@ -56,6 +57,26 @@
         <%= form.submit "Request Booking", class:"btn btn-danger"%>
       </div>
 
+      <% end %>
+    </div>
+  </div>
+    <div class="jumbotron border border-dark">
+      <div class="container d-flex">
+        <h1 class="mb-4 d-inline"><%= @listing.reviews.count %> Reviews | </h1>
+        <% if @reviews.count > 0 %>
+          <h4 class="mt-3 ml-2">Average score: <%= @reviews.sum(&:rating).to_f / @reviews.count.to_f %> / 5.0</h4>
+        <% else %>
+          <h4 class="mt-3 ml-2">Average score: 0 / 5.0</h4>
+        <% end %>
+      </div>
+      <% @listing.reviews.each do |review| %>
+      <div class="container mb-3">
+        <h4><%= review.user.first_name %> </h4>
+        <p><%= review.created_at %></p>
+        <p><%= review.comment %></p>
+        <p><strong>Rating: </strong><%= review.rating %>/5</p>
+        <hr class="my-4">
+      </div>
       <% end %>
     </div>
   </div>

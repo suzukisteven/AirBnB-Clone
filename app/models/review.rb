@@ -2,6 +2,6 @@ class Review < ApplicationRecord
 
   belongs_to :user
   belongs_to :listing
-  validates :comment, :score, presence: true
-  
+  validates :comment, :rating, presence: true
+
 end

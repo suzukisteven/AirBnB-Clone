@@ -1,0 +1,25 @@
+<div class="container d-flex justify-content-center">
+  <div class="jumbotron border border-dark mt-5 w-75">
+    <h2 class="text-center mb-5">Review this listing</h2>
+    <div class="text-field mb-3 d-flex justify-content-center">
+      <%= form_with url: listing_review_path, method: :post, local: true do |form| %>
+      <%= form.label "How many stars would you give your stay?"%></br>
+      <div class="container d-flex justify-content-center">
+        <%= form.select :rating, [
+          "1 Star", "2 Stars", "3 Stars",
+          "4 Stars", "5 Stars"
+        ],
+        class:"form-control"%></br>
+      </div>
+    </div>
+
+    <div class="text-area text-center">
+      <%= form.label "Leave your Review:", class:"mt-2" %>
+      <%= form.text_area :comment, class:"form-control text-center", rows:"5", placeholder:"Tell other guests how your experience was" %></br>
+    </div>
+    <div class="container d-flex justify-content-center">
+      <%= form.submit "Create Review", class:"btn btn-success"%>
+    </div>
+    <% end %>
+  </div>
+</div>

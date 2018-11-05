@@ -29,6 +29,10 @@ Rails.application.routes.draw do
   # Get/Show individual listing page
   get "/listings/:id" => "listings#show"
 
+  # Get/Show new review page
+  # get "/reviews/new" => "reviews#new"
+  # post "/reviews/create" => "reviews#create"
+
 
 
   # Other Users profile page - looking at someone else's profile, basic information
@@ -40,7 +44,11 @@ Rails.application.routes.draw do
   # Google OAuth2.0 callback route
   get "/auth/:provider/callback" => "sessions#create_from_omniauth"
 
-  resources :listings, :users, :bookings
+  resources :users, :bookings
+
+  resources :listings do
+    resource :review, only: [:new, :create, :destroy]
+  end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
 end

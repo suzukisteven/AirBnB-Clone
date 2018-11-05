@@ -1,7 +1,7 @@
 class ListingsController < ApplicationController
     before_action :require_login
     before_action :set_listing, only: [:show, :edit, :update, :destroy, :verify]
-    before_action :check_user, only: [:edit, :update, :destroy]
+    before_action :check_user, only: [:show, :edit, :update, :destroy]
     before_action :check_role, only: [:verify]
 
     def index
@@ -18,6 +18,10 @@ class ListingsController < ApplicationController
     end
 
     def show
+      # @review = Review.find(params[:id]).order(created_at: :desc)
+      # @review = Review.find_by(params[:id])
+      # @review = Review.all.order(created_at: :desc)
+      @reviews = Review.where(listing_id: params[:id])
     end
 
     def create
