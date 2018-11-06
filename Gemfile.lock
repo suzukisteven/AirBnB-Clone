@@ -52,6 +52,8 @@ GEM
     binding.repl (3.0.0)
     bootsnap (1.3.2)
       msgpack (~> 1.0)
+    braintree (2.92.0)
+      builder (>= 2.0.0)
     builder (3.2.3)
     byebug (10.0.2)
     capybara (3.10.0)
@@ -294,6 +296,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap (>= 1.1.0)
+  braintree
   byebug
   capybara (>= 2.15)
   carrierwave (~> 1.0)

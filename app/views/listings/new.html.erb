@@ -105,53 +105,53 @@
       <div class="text-field">
         <%= form.label "What amenities can you offer your guests?", class:"mb-2" %></br>
         <%= label_tag 'amenities', 'Essentials' %>
-        <%= form.check_box :amenities, { multiple: true }, class:"form-control"%>
+        <%= form.check_box :amenities, { multiple: true}, 'Essentials', nil %>
         <%= label_tag 'amenities', 'Wi-Fi', class:"ml-3" %>
-        <%= form.check_box :amenities, { multiple: true }, class:"form-control"%>
+        <%= form.check_box :amenities, { multiple: true}, 'Wi-Fi', nil %>
         <%= label_tag 'amenities', 'Shampoo', class:"ml-3" %>
-        <%= form.check_box :amenities, { multiple: true }, class:"form-control"%>
+        <%= form.check_box :amenities, { multiple: true }, 'Shampoo', nil %>
         <%= label_tag 'amenities', 'Closet/Drawers', class:"ml-3" %>
-        <%= form.check_box :amenities, { multiple: true }, class:"form-control"%>
+        <%= form.check_box :amenities, { multiple: true }, 'Closet/Drawers', nil %>
         <%= label_tag 'amenities', 'TV', class:"ml-3" %>
-        <%= form.check_box :amenities, { multiple: true }, class:"form-control"%>
+        <%= form.check_box :amenities, { multiple: true }, 'TV', nil %>
         <%= label_tag 'amenities', 'Heat', class:"ml-3" %>
-        <%= form.check_box :amenities, { multiple: true }, class:"form-control"%>
+        <%= form.check_box :amenities, { multiple: true }, 'Heat', nil %>
         <%= label_tag 'amenities', 'Air Conditioning', class:"ml-3" %>
-        <%= form.check_box :amenities, { multiple: true }, class:"form-control"%>
+        <%= form.check_box :amenities, { multiple: true }, 'Air Conditioning', nil %>
         <%= label_tag 'amenities', 'Breakfast, Coffee, Tea', class:"ml-3" %>
-        <%= form.check_box :amenities, { multiple: true }, class:"form-control"%>
+        <%= form.check_box :amenities, { multiple: true }, 'Breakfast, Coffee, Tea', nil %>
         <%= label_tag 'amenities', 'Desk/Workspace' %>
-        <%= form.check_box :amenities, { multiple: true }, class:"form-control"%>
+        <%= form.check_box :amenities, { multiple: true }, 'Desk/Workspace', nil%>
         <%= label_tag 'amenities', 'Fireplace', class:"ml-3" %>
-        <%= form.check_box :amenities, { multiple: true }, class:"form-control"%>
+        <%= form.check_box :amenities, { multiple: true }, 'Fireplace', nil%>
         <%= label_tag 'amenities', 'Iron', class:"ml-3" %>
-        <%= form.check_box :amenities, { multiple: true }, class:"form-control"%>
+        <%= form.check_box :amenities, { multiple: true }, 'Iron', nil %>
         <%= label_tag 'amenities', 'Hair Dryer', class:"ml-3" %>
-        <%= form.check_box :amenities, { multiple: true }, class:"form-control"%>
+        <%= form.check_box :amenities, { multiple: true }, 'Hair Dryer', nil %>
         <%= label_tag 'amenities', 'Pets in the House', class:"ml-3" %>
-        <%= form.check_box :amenities, { multiple: true }, class:"form-control"%>
+        <%= form.check_box :amenities, { multiple: true }, 'Pets in the House', nil %>
         <%= label_tag 'amenities', 'Private Entrance', class:"ml-3" %>
-        <%= form.check_box :amenities, { multiple: true }, class:"form-control"%>
+        <%= form.check_box :amenities, { multiple: true }, 'Private Entrance', nil %>
       </div>
       </br>
       <div class="text-field">
         <%= form.label "What shared spaces will guests have access to?", class:"mb-2" %></br>
         <%= label_tag 'shared_spaces', 'Pool' %>
-        <%= form.check_box :shared_spaces, { multiple: true }, class:"form-control"%>
+        <%= form.check_box :shared_spaces, { multiple: true }, 'Pool', nil %>
         <%= label_tag 'shared_spaces', 'Kitchen', class:"ml-3" %>
-        <%= form.check_box :shared_spaces, { multiple: true }, class:"form-control"%>
+        <%= form.check_box :shared_spaces, { multiple: true }, 'Kitchen', nil %>
         <%= label_tag 'shared_spaces', 'Laundry - Washer', class:"ml-3" %>
-        <%= form.check_box :shared_spaces, { multiple: true }, class:"form-control"%>
+        <%= form.check_box :shared_spaces, { multiple: true }, 'Laundry - Washer', nil %>
         <%= label_tag 'shared_spaces', 'Laundry - Dryer', class:"ml-3" %>
-        <%= form.check_box :shared_spaces, { multiple: true }, class:"form-control"%>
+        <%= form.check_box :shared_spaces, { multiple: true }, 'Laundry - Dryer', nil %>
         <%= label_tag 'shared_spaces', 'Parking', class:"ml-3" %>
-        <%= form.check_box :shared_spaces, { multiple: true }, class:"form-control"%>
+        <%= form.check_box :shared_spaces, { multiple: true }, 'Parking', nil %>
         <%= label_tag 'shared_spaces', 'Elevator', class:"ml-3" %>
-        <%= form.check_box :shared_spaces, { multiple: true }, class:"form-control"%>
+        <%= form.check_box :shared_spaces, { multiple: true }, 'Elevator', nil %>
         <%= label_tag 'shared_spaces', 'Hot-Tub', class:"ml-3" %>
-        <%= form.check_box :shared_spaces, { multiple: true }, class:"form-control"%>
+        <%= form.check_box :shared_spaces, { multiple: true }, 'Hot-Tub', nil %>
         <%= label_tag 'shared_spaces', 'Gym', class:"ml-3" %>
-        <%= form.check_box :shared_spaces, { multiple: true }, class:"form-control"%>
+        <%= form.check_box :shared_spaces, { multiple: true }, 'Gym', nil %>
       </div>
       <hr class="my-4">
       <h3>Additional information</h3></br>
@@ -178,7 +178,8 @@
 
       <div class="mb-3">
         <%= form.label :upload_image %></br>
-        <%= form.file_field :image %>
+        <%= form.file_field :images, multiple: true %>
+        <%= form.hidden_field :images_cache %>
       </div>
 
       <div>

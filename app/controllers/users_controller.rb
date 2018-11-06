@@ -7,6 +7,21 @@ class UsersController < Clearance::UsersController
     @listing = current_user.listings
   end
 
+  def create
+    @user = User.new(user_params)
+    if @user.save
+      flash[:success] = "Your account has been successfully created."
+      redirect_to root_path
+    else
+      flash[:error] = "Failed to create an account. Please try again."
+      redirect_to sign_up_path
+    end
+  end
+
+  def new
+    @user = User.new
+  end
+
 
   def update
     @user = User.find(params[:id])
@@ -40,7 +55,6 @@ class UsersController < Clearance::UsersController
 
     def user_params
       params.require(:user).permit(:first_name, :last_name, :email, :avatar)
-        # {avatars: []})
     end
 
 end

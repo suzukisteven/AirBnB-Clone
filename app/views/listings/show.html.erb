@@ -2,7 +2,7 @@
 <div class="container mt-3">
   <div class="jumbotron border border-dark">
     <h6> <%= @listing.property_type.upcase %></h6>
-    <div class="d-flex" style="height: 50px;">
+    <div class="d-flex" style="height: 125px;">
       <h1 class="d-inline-block"> <%= @listing.title %> </h1>
       <% if @listing.verified == true %>
         <h3 class="h-25 d-inline-block ml-3 mt-2"><span class="badge badge-success mb-5">Verified</span></h3>
@@ -21,8 +21,17 @@
         <h5><i class="fas fa-bath"></i> <strong>Bathroom(s):</strong> <%= @listing.bathrooms %></h5>
       </div>
       <div class="d-inline-block">
-        <h5><i class="fas fa-wine-glass-alt"></i> <strong>Amenities:</strong> <%= @listing.amenities %></h5>
-        <h5><i class="fas fa-hot-tub"></i> <strong>Shared Spaces:</strong> <%= @listing.shared_spaces %></h5>
+        <h5><i class="fas fa-wine-glass-alt"></i>
+           <strong>Amenities:</strong>
+          <% @listing.amenities.each do |amenity| %>
+          • <%= amenity %>
+          <% end %>
+        </h5>
+        <h5><i class="fas fa-hot-tub"></i> <strong>Shared Spaces:</strong>
+          <% @listing.shared_spaces.each do |space| %>
+            • <%= space %>
+          <% end %>
+        </h5>
       </div>
     </div>
     <hr class="my-4">

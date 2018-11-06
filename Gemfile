@@ -36,6 +36,8 @@ gem 'carrierwave', '~> 1.0'
 gem "mini_magick"
 # Search Bar
 gem 'pg_search'
+# Braintree for payment processing
+gem 'braintree'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'

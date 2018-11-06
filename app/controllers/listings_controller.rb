@@ -88,7 +88,7 @@ class ListingsController < ApplicationController
                                       :price_per_night, :home_type, :property_type,
                                       :country, :street_address, :room_number,
                                       :city, :state, :zip_code, :beds, :bathrooms,
-                                      :property_type, amenities:[], shared_spaces:[])
+                                      :property_type, amenities:[], shared_spaces:[], images: [])
     end
 
     def check_user
