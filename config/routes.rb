@@ -30,6 +30,10 @@ Rails.application.routes.draw do
   # Get/Show individual listing page
   get "/listings/:id" => "listings#show"
 
+  # Braintree Checkout Route incl. wildcard [T]
+  post 'braintree/:booking_id/checkout' => 'braintree#checkout', as: 'braintree_checkout'
+
+
   # Get/Show new review page
   # get "/reviews/new" => "reviews#new"
   # post "/reviews/create" => "reviews#create"
@@ -49,6 +53,10 @@ Rails.application.routes.draw do
 
   resources :listings do
     resource :review, only: [:new, :create, :destroy]
+  end
+
+  resources :bookings do
+    resources :brain_tree_new
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 

@@ -1,13 +1,20 @@
 class BookingsController < ApplicationController
 
+  # after_initialize do
+  #   if self.new_record?
+  #     self.payment_status ||= :pending
+  #   end
+  # end
+
   def create
     @listing = Listing.find(params[:listing_id])
     @booking = Booking.new(booking_params)
     @booking.listing_id = @listing.id
     @booking.user_id = current_user.id
     if @booking.user_id != @listing.user_id
+      @booking.pending!
       if @booking.save
-        flash[:success] = "Successfully requested a booking. Your host will contact you shortly."
+        flash[:success] = "Successfully requested a booking. Please make payment under 'My Profile'"
         redirect_to listing_path(@listing.id)
       else
         flash[:error] = "Your booking was not successful because: #{@booking.errors.full_messages[0].downcase}"

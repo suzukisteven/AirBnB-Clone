@@ -55,14 +55,21 @@
             <h5><strong>Booking <%= i+1 %></strong></h5>
           </div>
           <div class="card-body text-center">
-            <h5 class="card-title"><%= @listing[i].title %></h5>
-            <p class="card-text"><%= @listing[i].city %>, <%= @listing[i].country%></p>
+            <!--  Issue here when user has less than 2 listings, sometimes happens on third -->
+            <!--  Was because of listing[i] index. Should be booking.listing.x -->
+            <h5 class="card-title"> <%= truncate(booking.listing.title, length: 40) %> </h5>
+            <p class="card-text"> <%= booking.listing.city %>, <%= booking.listing.country%></p>
             <p><strong>Check-in:</strong> <%= booking.check_in %></p>
             <p><strong>Check-out:</strong> <%= booking.check_out %></p>
             <p><strong>Guests:</strong> <%= booking.guests_count %></p>
             <div class="container d-flex justify-content-center">
-              <%= link_to "Cancel this Booking", booking_path(booking.id), class:"btn btn-danger", method: :delete, :data => {:confirm => 'Are you sure you want to cancel your booking?'} %>
+              <%= link_to "Cancel this Booking", booking_path(booking.id), class:"btn btn-danger mb-3", method: :delete, :data => {:confirm => 'Are you sure you want to cancel your booking?'} %>
             </div>
+            <% if booking.pending? %>
+              <%= link_to "Make Payment", braintree_new_path(booking_id: booking.id), class:"btn btn-success" %>
+            <% else %>
+              <%= link_to "Payment Made", braintree_new_path(booking_id: booking.id), class:"btn btn-success disabled" %>
+            <% end %>
           </div>
         </div>
       <% end %>
