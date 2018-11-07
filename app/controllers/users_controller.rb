@@ -11,7 +11,7 @@ class UsersController < Clearance::UsersController
     @user = User.new(user_params)
     if @user.save
       flash[:success] = "Your account has been successfully created."
-      redirect_to root_path
+      redirect_to sign_in_path
     else
       flash[:error] = "Failed to create an account. Please try again."
       redirect_to sign_up_path
@@ -25,9 +25,13 @@ class UsersController < Clearance::UsersController
 
   def update
     @user = User.find(params[:id])
-    @user.update(user_params)
+    @user.update(user_update_params)
     if @user.save
-      redirect_back fallback_location: "profile"
+      flash[:success] = "Your information was successfully updated."
+      redirect_to profile_path
+    else
+      flash[:error] = "Your user details could not be updated. Please try again."
+      redirect_to profile_path
     end
   end
 
@@ -54,7 +58,11 @@ class UsersController < Clearance::UsersController
     end
 
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :email, :avatar)
+      params.require(:user).permit(:first_name, :password, :last_name, :email, :avatar)
+    end
+
+    def user_update_params
+      params.require(:user).permit(:first_name, :password, :last_name, :email, :avatar)
     end
 
 end

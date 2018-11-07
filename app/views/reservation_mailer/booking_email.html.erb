@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <%= stylesheet_link_tag    'https://use.fontawesome.com/releases/v5.4.2/css/all.css' %>
+    <%= stylesheet_link_tag    'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css'%>
+    <%= javascript_include_tag "https://code.jquery.com/jquery-3.3.1.js" %>
+    <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js' %>
+    <%= javascript_include_tag 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js' %>
+  </head>
+  <body>
+    <div class="container">
+      <div class="jumbotron border border-dark text-center">
+        <img src="app/assets/images/logo.png" alt="scambnb-logo">
+        <h3>ScamBnB ®</h3>
+        <h1>Congratulations <%= @host.first_name %>! You have received a booking from <%= @customer.first_name %> <%= @customer.last_name %></h1>
+        <hr>
+        <p>You can see details of your new reservation here:</p>
+        <p><strong><%= @listing.title %></strong></p>
+        <%= image_tag(@listing.images[0].thumb.url) %>
+        <p><%= @listing.property_type %></p>
+        <p> <%= @listing.city %>, <%= @listing.country %></p>
+        <p><strong>Dates Booked: </strong><%= @booking.check_in %> <strong>to</strong> <%= @booking.check_out %></p>
+        <p><strong>Guests: </strong><%= @booking.guests_count %></p>
+        <p><strong>Total Price: </strong><%= @booking.total_price %>0 RM</p>
+        <a href="localhost:3000/profile">Click here to go to your Profile</a>
+        <hr>
+        <p>The ScamBnB ® Team</p>
+      </div>
+    </div>
+  </body>
+</html>

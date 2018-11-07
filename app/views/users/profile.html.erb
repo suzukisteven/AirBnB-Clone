@@ -33,6 +33,7 @@
           <div class="card-body">
             <h5 class="card-title"><%= listing.title %></h5>
             <p class="card-text"><%= listing.description %></p>
+            <%= image_tag(listing.images[0].thumb.url) %>
             <p class="card-text">RM <%= listing.price_per_night %>0</p>
             <%= link_to "Edit", edit_listing_path(listing.id), class: "btn btn-warning btn-sm mr-1" %>
             <%= link_to "Delete", listing_path(listing.id), class: "btn btn-danger btn-sm mr-1", method: :delete, :data => {:confirm => 'Are you sure you want to delete your listing?'} %>
@@ -58,7 +59,8 @@
             <!--  Issue here when user has less than 2 listings, sometimes happens on third -->
             <!--  Was because of listing[i] index. Should be booking.listing.x -->
             <h5 class="card-title"> <%= truncate(booking.listing.title, length: 40) %> </h5>
-            <p class="card-text"> <%= booking.listing.city %>, <%= booking.listing.country%></p>
+            <%= image_tag(booking.listing.images[0].thumb.url) %>
+            <p class="card-text mt-3"> <%= booking.listing.city %>, <%= booking.listing.country%></p>
             <p><strong>Check-in:</strong> <%= booking.check_in %></p>
             <p><strong>Check-out:</strong> <%= booking.check_out %></p>
             <p><strong>Guests:</strong> <%= booking.guests_count %></p>

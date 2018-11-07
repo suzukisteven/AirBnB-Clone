@@ -10,23 +10,23 @@ class BraintreeController < ApplicationController
   end
 
   def checkout
-    #@paid = false
     @booking = Booking.find(checkout_params[:booking_id])
-  nonce_from_the_client = params[:checkout_form][:payment_method_nonce]
+    nonce_from_the_client = params[:checkout_form][:payment_method_nonce]
 
-  result = Braintree::Transaction.sale(
-   :amount => @booking.total_price, #this is currently hardcoded - "10"
-   :payment_method_nonce => nonce_from_the_client,
-   :options => {
-      :submit_for_settlement => true
-    }
-   )
+    result = Braintree::Transaction.sale(
+     :amount => @booking.total_price, #this is currently hardcoded - "10"
+     :payment_method_nonce => nonce_from_the_client,
+     :options => {
+        :submit_for_settlement => true
+      }
+     )
 
     if result.success?
       @booking.paid!
+      ReservationMailer.booking_email(@booking.user, @booking.listing.user, @booking.id).deliver_now
       redirect_to :root, :flash => { :success => "Transaction Successful. Thank you for booking with ScamBnB." }
     else
-      redirect_to :root, :flash => { :error => "Transaction was unsuccessful. Please try again." }
+      redirect_to :root, :flash => { :error => "Transaction was not successful. Please try again." }
     end
   end
 

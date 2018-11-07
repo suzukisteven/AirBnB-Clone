@@ -25,9 +25,9 @@
   </div>
 
   <hr class="my-4">
-
+  <% if current_user %>
   <div>
     <%= form.submit class:"btn btn-warning mt-2", method: :update, value:"Update information" %>
   </div>
-
+  <% end %>
 </div>

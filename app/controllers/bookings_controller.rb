@@ -12,9 +12,9 @@ class BookingsController < ApplicationController
     @booking.listing_id = @listing.id
     @booking.user_id = current_user.id
     if @booking.user_id != @listing.user_id
-      @booking.pending!
       if @booking.save
-        flash[:success] = "Successfully requested a booking. Please make payment under 'My Profile'"
+        @booking.pending!
+        flash[:success] = "Successfully requested a booking. Please pay in 'My Profile' to secure your booking."
         redirect_to listing_path(@listing.id)
       else
         flash[:error] = "Your booking was not successful because: #{@booking.errors.full_messages[0].downcase}"

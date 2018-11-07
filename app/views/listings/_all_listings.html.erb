@@ -33,7 +33,7 @@
 
         <div class="d-flex">
           <a href= "<%=listing_path(listing.id)%>" class="btn btn-outline-primary btn-sm mb-3 d-inline">Read More</a></br>
-          <% if current_user.superadmin? %>
+          <% if current_user && current_user.superadmin? %>
             <% if listing.verified == false %>
               <%= link_to "Verify", verify_path(listing.id), method: :post, class: "btn btn-success btn-sm d-inline ml-2 h-100" %>
             <% else %>
@@ -44,7 +44,7 @@
 
         <p class="card-text"><i class="fas fa-dollar-sign"></i> <strong>Price per Night:</strong> <%= listing.price_per_night %>0 RM</p>
         <p class="card-text"><i class="fas fa-users"></i> <strong>Max Guests:</strong> <%= listing.maximum_guests %></p>
-        <% if current_user.id == listing.user_id || current_user.moderator? %>
+        <% if current_user && (current_user.id == listing.user_id || current_user.moderator?) %>
           <%= link_to "Edit", edit_listing_path(listing.id), class: "btn btn-warning btn-sm mr-1" %>
           <%= link_to "Delete", listing_path(listing.id), class: "btn btn-danger btn-sm", method: :delete, :data => {:confirm => 'Are you sure you want to delete this listing?'} %>
         <% end %>

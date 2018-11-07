@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   include Clearance::User
+  # validates :password, optional: true
 
   has_many :listings, dependent: :destroy
   has_many :bookings, dependent: :destroy
@@ -8,7 +9,6 @@ class User < ApplicationRecord
 
   enum role: [:customer, :moderator, :superadmin]
   mount_uploader :avatar, AvatarUploader
-  mount_uploaders :avatars, AvatarUploader
   # Enum refers to the Ruby class we're using
   # role is the attribute we're going to treat as an enum
   # :customer etc, names we're using to reference a users role

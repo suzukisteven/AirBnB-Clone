@@ -20,8 +20,8 @@ User.all.each { |u| uids << u.id }
 
 ActiveRecord::Base.transaction do
   40.times do
-    listing['title'] = Faker::SiliconValley.motto
-    listing['description'] = Faker::SiliconValley.quote
+    listing['title'] = Faker::TwinPeaks.location
+    listing['description'] = Faker::BojackHorseman.quote
     listing['home_type'] = ["House", "Apartment", "Secondary Unit", "Boutique Hotel", "Bed & Breakfast", "Unique Space"].sample
     listing['property_type'] = ["House", "Apartment", "Bungalow", "Cabin", "Casa Particular", "Chalet", "Cottage", "Cycladic House", "Dammuso (Italy)", "Dome House", "Earth House", "Farm stay", "Houseboat", "Hut", "Lighthouse", "Pension (South Korea)", "Tiny Home", "Villa"].sample
     listing['country'] = Faker::Address.country
@@ -41,11 +41,11 @@ ActiveRecord::Base.transaction do
     rand(1..6).times do
       listing['shared_spaces'] << ["Pool", "Kitchen", "Laundry - Washer", "Laundry - Dryer", "Parking", "Elevator", "Hot Tub", "Gym"].sample
     end
-    listing['maximum_guests'] = rand(0..20)
+    listing['maximum_guests'] = rand(2..15)
     listing['price_per_night'] = rand(100..1000)
     listing['images'] = []
     3.times do
-      listing['images'] << Rails.root.join("app/assets/images/#{rand(1..10)}.jpg").open
+      listing['images'] << Rails.root.join("app/assets/images/#{rand(1..15)}.jpg").open
     end
 
     listing['user_id'] = uids.sample
