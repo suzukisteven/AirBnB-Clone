@@ -28,10 +28,14 @@
     <!-- Use justify-content-between for this layout -->
     <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
       <ul class="navbar-nav">
-        <form class="form-inline">
+        <!-- <form class="form-inline">
           <input class="form-control mr-sm-2" style="width: 325px;" type="search" placeholder="Where do you want to go?" aria-label="Search">
           <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Let's Go!</button>
-        </form>
+        </form> -->
+        <%= form_tag search_path, method: :post, class:"form-inline" do %>
+          <%= text_field_tag "listing[multi]", nil, placeholder:"Where do you want to go today?", style:"width: 325px;", class:"form-control" %>
+          <%= submit_tag "Let's Go", :name => nil, class:"btn btn-outline-warning ml-3" %>
+        <% end %>
       </ul>
 
       <ul class="navbar-nav">

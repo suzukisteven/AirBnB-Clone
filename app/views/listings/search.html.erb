@@ -1,0 +1,151 @@
+<h1 class="m-3">Filter Listings</h1>
+<%= form_with scope: :listing, url: search_path, method: :post, local: true do |form| %>
+<div class="jumbotron border border-warning">
+  <div class="text-field mb-3 d-flex">
+    <div class="container">
+      <%= form.label "Search Term:" %>
+      <%= text_field_tag "listing[multi]", nil, placeholder:"Where do you want to go today?", style:"width: 325px;", class:"form-control", value:"#{@searchTerm}" %>
+    </div>
+    <div class="container">
+      <%= form.label "How many guests?" %></br>
+      <%= form.select :maximum_guests, ["1", "2", "3",
+        "4", "5", "6",
+        "7", "8", "9",
+        "10", "11", "12",
+        "13", "14", "15",
+        "16", "17", "18",
+        "19", "20"
+      ],
+      class:"form-control" %></br>
+    </div>
+    <!-- <div class="container d-inline-block">
+      <%#= form.label "How many bathrooms?" %></br>
+      <%#= form.select :bathrooms, [
+        "1 Bathroom", "2 Bathrooms", "3 Bathrooms",
+        "4 Bathrooms", "5 Bathrooms", "6 Bathrooms",
+        "7 Bathrooms", "8 Bathrooms", "9 Bathrooms",
+        "10 Bathrooms"
+      ],
+      class:"form-control" %></br></br>
+    </div> -->
+    <!-- <div class="container d-inline-block">
+      <%#= form.label "How many beds?" %></br>
+      <%#= form.select :beds, [
+        "1 Bed", "2 Beds", "3 Beds",
+        "4 Beds", "5 Beds", "6 Beds",
+        "7 Beds", "8 Beds", "9 Beds",
+        "10 Beds"
+      ],
+      class:"form-control" %></br></br>
+    </div> -->
+  </div>
+
+  <div class="text-field">
+    <%= form.label "What amenities are you looking for?", class:"mb-2" %></br>
+    <%= label_tag 'amenities', 'Essentials' %>
+    <%= form.check_box :amenities, { multiple: true}, 'Essentials', nil %>
+    <%= label_tag 'amenities', 'Wi-Fi', class:"ml-3" %>
+    <%= form.check_box :amenities, { multiple: true}, 'Wi-Fi', nil %>
+    <%#= label_tag 'amenities', 'Shampoo', class:"ml-3" %>
+    <%#= form.check_box :amenities, { multiple: true }, 'Shampoo', nil %>
+    <%#= label_tag 'amenities', 'Closet/Drawers', class:"ml-3" %>
+    <%#= form.check_box :amenities, { multiple: true }, 'Closet/Drawers', nil %>
+    <%#= label_tag 'amenities', 'TV', class:"ml-3" %>
+    <%#= form.check_box :amenities, { multiple: true }, 'TV', nil %>
+    <%#= label_tag 'amenities', 'Heat', class:"ml-3" %>
+    <%#= form.check_box :amenities, { multiple: true }, 'Heat', nil %>
+    <%#= label_tag 'amenities', 'Air Conditioning', class:"ml-3" %>
+    <%#= form.check_box :amenities, { multiple: true }, 'Air Conditioning', nil %>
+    <%#= label_tag 'amenities', 'Breakfast, Coffee, Tea', class:"ml-3" %>
+    <%#= form.check_box :amenities, { multiple: true }, 'Breakfast, Coffee, Tea', nil %>
+    <%#= label_tag 'amenities', 'Desk/Workspace' %>
+    <%#= form.check_box :amenities, { multiple: true }, 'Desk/Workspace', nil%>
+    <%#= label_tag 'amenities', 'Fireplace', class:"ml-3" %>
+    <%#= form.check_box :amenities, { multiple: true }, 'Fireplace', nil%>
+    <%#= label_tag 'amenities', 'Iron', class:"ml-3" %>
+    <%#= form.check_box :amenities, { multiple: true }, 'Iron', nil %>
+    <%#= label_tag 'amenities', 'Hair Dryer', class:"ml-3" %>
+    <%#= form.check_box :amenities, { multiple: true }, 'Hair Dryer', nil %>
+    <%#= label_tag 'amenities', 'Pets in the House', class:"ml-3" %>
+    <%#= form.check_box :amenities, { multiple: true }, 'Pets in the House', nil %>
+    <%#= label_tag 'amenities', 'Private Entrance', class:"ml-3" %>
+    <%#= form.check_box :amenities, { multiple: true }, 'Private Entrance', nil %>
+  </div>
+
+  <!-- <div class="text-field">
+    <%#= form.label :price_per_night %>
+    <%#= form.text_field :price_per_night, class:"form-control" %></br>
+  </div> -->
+
+  <%= submit_tag "Filter Results", :name => nil, class:"btn btn-outline-info ml-3" %>
+</div>
+<% end %>
+
+  <% @listings.each do |listing| %>
+  <div class="card-deck d-inline-block m-2">
+    <div class="card border-0" style="width: 18.5rem;">
+
+      <div id="carouselExampleFade<%= listing.id %>" class="carousel slide carousel-fade" data-ride="carousel" data-interval="false">
+        <div class="carousel-inner">
+          <% listing.images.each_with_index do |image, i| %>
+            <div class="carousel-item <%= "active" if i == 0 %>">
+              <img class="d-block w-100" src="<%= image.url %>" alt="First slide">
+            </div>
+          <% end %>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleFade<%= listing.id %>" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleFade<%= listing.id %>" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+
+      <div class="card-body">
+        <div class="d-flex">
+          <h5 class="card-title d-inline-block"><%= truncate(listing.title, length: 20) %></h5>
+          <% if listing.verified == true %>
+            <span class="badge badge-success d-inline-block h-100 mt-1 ml-2">Verified</span>
+          <% end %>
+        </div>
+        <p class="card-text" style="font-size: 14px;"><%= truncate(listing.property_type, length: 75) %></p>
+
+        <div class="d-flex">
+          <a href= "<%=listing_path(listing.id)%>" class="btn btn-outline-primary btn-sm mb-3 d-inline">Read More</a></br>
+          <% if current_user && current_user.superadmin? %>
+            <% if listing.verified == false %>
+              <%= link_to "Verify", verify_path(listing.id), method: :post, class: "btn btn-success btn-sm d-inline ml-2 h-100" %>
+            <% else %>
+              <%= link_to "Un-verify", verify_path(listing.id), method: :post, class: "btn btn-dark btn-sm d-inline ml-2 h-100" %>
+            <% end %>
+          <% end %>
+        </div>
+
+        <p class="card-text"><i class="fas fa-dollar-sign"></i> <strong>Price per Night:</strong> <%= listing.price_per_night %>0 RM</p>
+        <p class="card-text"><i class="fas fa-users"></i> <strong>Max Guests:</strong> <%= listing.maximum_guests %></p>
+        <% if current_user && (current_user.id == listing.user_id || current_user.moderator?) %>
+          <%= link_to "Edit", edit_listing_path(listing.id), class: "btn btn-warning btn-sm mr-1" %>
+          <%= link_to "Delete", listing_path(listing.id), class: "btn btn-danger btn-sm", method: :delete, :data => {:confirm => 'Are you sure you want to delete this listing?'} %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <% end %>
+
+<div class="container d-flex justify-content-center mb-3">
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+      <div class="d-flex">
+        <% count = 0 %>
+        <% @paginate_count.times do %>
+        <% count += 1 %>
+        <li class="page-item"><a class="page-link" href="/?page=<%= count %>"><%= count %></a>
+        <% end %>
+      </div>
+      <li class="page-item"><a class="page-link" href="/?page=<%= +1 %>">Next</a></li>
+    </ul>
+  </nav>
+</div>

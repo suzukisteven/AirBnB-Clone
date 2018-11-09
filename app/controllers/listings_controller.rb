@@ -17,6 +17,34 @@ class ListingsController < ApplicationController
       end
     end
 
+    def search_form
+      @listings = Listing.all
+      @paginate_count = (@listings.count/8).to_i
+      render "listings/search"
+    end
+
+    def search
+      @searchTerm = params[:listing][:multi]
+      @listings = Listing.where(nil)
+      # @listings = @listings.title(params[:listing][:title]) if params[:listing][:title].present?
+      # @listings = @listings.country(params[:listing][:country]) if params[:listing][:country].present?
+      # @listings = @listings.city(params[:listing][:city]) if params[:listing][:city].present?
+      # @listings = @listings.property_type(params[:listing][:property_type]) if params[:listing][:property_type].present?
+      @listings = @listings.multi(params[:listing][:multi]) if params[:listing][:multi].present?
+      @listings = @listings.maximum_guests(params[:listing][:maximum_guests]) if params[:listing][:maximum_guests].present?
+      # @listings = @listings.beds(params[:listing][:beds]) if params[:listing][:beds].present?
+      # @listings = @listings.bathrooms(params[:listing][:bathrooms]) if params[:listing][:bathrooms].present?
+      @listings = @listings.amenities(params[:listing][:amenities]) if params[:listing][:amenities].present?
+      # @listings = @listings.price_per_night(params[:listing][:price_per_night]) if params[:listing][:price_per_night].present?
+
+      # filtering_params(params).each do |key, value|
+      #   @listings = @listings.public_send(key, value) if value.present?
+      # end
+
+      @paginate_count = (@listings.count/8).to_i
+      render "listings/search"
+    end
+
     def show
       # @review = Review.find(params[:id]).order(created_at: :desc)
       # @review = Review.find_by(params[:id])
@@ -105,5 +133,9 @@ class ListingsController < ApplicationController
         flash[:alert] = "You are not authorized to perform that action."
         redirect_to listings_path
       end
+    end
+
+    def filtering_params(params)
+      params.require(:listing).permit(:title, :country, :property_type, :city, :multi, :maximum_guests, :beds, :bathrooms, :amenities, :price_per_night)
     end
 end

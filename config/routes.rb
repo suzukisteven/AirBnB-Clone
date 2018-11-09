@@ -27,6 +27,10 @@ Rails.application.routes.draw do
   # Get/Show create a listing page
   get "/listings/new" => "listings#new"
 
+  # Get search results
+  post "/listings/search" => "listings#search", as: "search"
+  get "/listings/search" => "listings#search_form", as:"search_form"
+
   # Get/Show individual listing page
   get "/listings/:id" => "listings#show"
 
