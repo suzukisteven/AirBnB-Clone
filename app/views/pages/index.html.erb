@@ -1,2 +1,8 @@
-<h1><%= @title %></h1>
-<p><%= @description %></p>
+
+<div class="card mt-3 mb-3">
+    <%= image_tag "main-header.png", class:"card-img-top" %>
+  <!-- <h1 class="text-center mt-3"> <%#= @title %> <i class="fas fa-running"></i></h1>
+  <p class="text-center"><em><%#= @description %></em></p> -->
+</div>
+
+  <%= render partial: "listings/all_listings" %>

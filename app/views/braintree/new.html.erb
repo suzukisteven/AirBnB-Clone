@@ -1,0 +1,142 @@
+<div class="container d-flex">
+  <div class="jumbotron border border-dark d-inline w-75 mr-3 mt-3">
+    <h2><i class="far fa-credit-card"></i> Payment Information</h2>
+    <hr class="my-4">
+    <div class="demo-frame">
+
+      <%= form_for :checkout_form, url: braintree_checkout_path(@booking.id), html: { id: "cardForm"} do |form| %>
+
+      <%= form.label :card_number, "Credit Card Number", html: {class: "hosted-fields--label"} %>
+      <div id="card-number" class="hosted-field"></div>
+
+      <%= form.label :expiration_date, "Expiration Date", html: {class: "hosted-fields--label"} %>
+      <div id="expiration-date" class="hosted-field"></div>
+
+      <%= form.label :cvv, "CVV", html: {class: "hosted-fields--label"} %>
+      <div id="cvv" class="hosted-field"></div>
+
+      <%= form.hidden_field "payment_method_nonce" %>
+
+      <div class="button-container">
+        <%= form.submit "Confirm Payment", disabled: true, class: "btn btn-success", id: "submit-payment-btn" %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="jumbotron border border-dark w-75 d-inline mt-3">
+    <h2 class="mb-3"> <i class="fas fa-check-square"></i> Review Your Booking </h2>
+    <hr class="my-4">
+    <div class="container d-flex justify-content-between">
+      <h5><strong><%= @listing.title %></strong></h5></br>
+      <%= image_tag(@listing.images[0].thumb.url) %>
+    </div>
+    <div class="container">
+      <p><i class="fas fa-hotel"></i> <strong><%= @listing.property_type %></strong> | <%= @listing.city %>, <%= @listing.country %> </p>
+    </div>
+    <hr class="my-4">
+    <div class="container ml-3 mb-3">
+      <p><i class="far fa-calendar-alt"></i> <%= @booking.check_in %> <i class="fas fa-arrow-right"></i> <%= @booking.check_out %></p>
+      <p><i class="fas fa-users"></i> x <%= @booking.guests_count %></p>
+    </div>
+
+    <div class="container d-flex">
+      <div class="container">
+        <p><%= @listing.price_per_night.to_i %> RM x <%= (@booking.check_out - @booking.check_in).to_i %> nights </p>
+      </div>
+      <div class="container">
+        <h6><strong><%= @booking.total_price %>0 RM</strong></h6>
+      </div>
+    </div>
+    <div class="container d-flex">
+      <div class="container">
+        <p><strong>"Service" Fee:</strong> 6% <strong>
+      </div>
+      <div class="container">
+        <%= @booking.total_price * 0.06 %> RM</strong>
+      </div>
+    </div>
+    <hr class="my-4">
+    <div class="container d-flex">
+      <div class="container">
+        <h5><strong>Total Price: </strong></h5>
+      </div>
+      <div class="container">
+        <h3><strong><%= @booking.total_price * 1.06 %> RM</strong></h3>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).on('turbolinks:load', function(){
+  var form = document.querySelector('#cardForm');
+  var submit = document.querySelector("#submit-payment-btn");
+  var authorization = '<%= @client_token %>';
+
+  braintree.client.create({
+    // Replace this with your own authorization.
+    authorization: authorization
+  }, function (clientErr, clientInstance) {
+    if (clientErr) {
+      // Handle error in client creation
+      return;
+    }
+
+    braintree.hostedFields.create({
+      client: clientInstance,
+      styles: {
+        'input': {
+          'font-size': '14pt'
+        },
+        'input.invalid': {
+          'color': 'red'
+        },
+        'input.valid': {
+          'color': 'green'
+        }
+      },
+      fields: {
+        number: {
+          selector: '#card-number',
+          placeholder: '4111 1111 1111 1111'
+        },
+        cvv: {
+          selector: '#cvv',
+          placeholder: '123'
+        },
+        expirationDate: {
+          selector: '#expiration-date',
+          placeholder: '10/2019'
+        }
+      }
+    }, function (hostedFieldsErr, hostedFieldsInstance) {
+      if (hostedFieldsErr) {
+        // Handle error in Hosted Fields creation
+        return;
+      }
+
+      submit.removeAttribute('disabled');
+
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        hostedFieldsInstance.tokenize(function (tokenizeErr, payload) {
+          if (tokenizeErr) {
+            // Handle error in Hosted Fields tokenization
+            return;
+          }
+
+          // Put `payload.nonce` into the `payment_method_nonce` input, and then
+          // submit the form. Alternatively, you could send the nonce to your server
+          // with AJAX.
+          document.querySelector('input[name="checkout_form[payment_method_nonce]"]').value = payload.nonce;
+          form.submit();
+          event.preventDefault();
+        });
+      });
+    });
+  });
+
+})
+</script>

@@ -1,0 +1,102 @@
+<h1 class="m-3">Filter Listings</h1>
+<%= form_with scope: :listing, url: search_path, method: :post do |form| %>
+<div class="jumbotron border border-warning">
+  <div class="text-field mb-3 d-flex">
+    <div class="container">
+      <%= form.label "Search Term:" %>
+      <%= text_field_tag "listing[multi]", nil, placeholder:"Where do you want to go today?", style:"width: 325px;", class:"form-control", value:"#{@searchTerm}" %>
+    </div>
+    <div class="container">
+      <%= form.label "How many guests?" %></br>
+      <%= form.select :maximum_guests, ["1", "2", "3",
+        "4", "5", "6",
+        "7", "8", "9",
+        "10", "11", "12",
+        "13", "14", "15",
+        "16", "17", "18",
+        "19", "20"
+      ],
+      class:"form-control" %></br>
+    </div>
+    <!-- <div class="container d-inline-block">
+      <%#= form.label "How many bathrooms?" %></br>
+      <%#= form.select :bathrooms, [
+        "1 Bathroom", "2 Bathrooms", "3 Bathrooms",
+        "4 Bathrooms", "5 Bathrooms", "6 Bathrooms",
+        "7 Bathrooms", "8 Bathrooms", "9 Bathrooms",
+        "10 Bathrooms"
+      ],
+      class:"form-control" %></br></br>
+    </div> -->
+    <!-- <div class="container d-inline-block">
+      <%#= form.label "How many beds?" %></br>
+      <%#= form.select :beds, [
+        "1 Bed", "2 Beds", "3 Beds",
+        "4 Beds", "5 Beds", "6 Beds",
+        "7 Beds", "8 Beds", "9 Beds",
+        "10 Beds"
+      ],
+      class:"form-control" %></br></br>
+    </div> -->
+  </div>
+
+  <div class="text-field">
+    <%= form.label "What amenities are you looking for?", class:"mb-2" %></br>
+    <%= label_tag 'amenities', 'Essentials' %>
+    <%= form.check_box :amenities, { multiple: true}, 'Essentials', nil %>
+    <%= label_tag 'amenities', 'Wi-Fi', class:"ml-3" %>
+    <%= form.check_box :amenities, { multiple: true}, 'Wi-Fi', nil %>
+    <%#= label_tag 'amenities', 'Shampoo', class:"ml-3" %>
+    <%#= form.check_box :amenities, { multiple: true }, 'Shampoo', nil %>
+    <%#= label_tag 'amenities', 'Closet/Drawers', class:"ml-3" %>
+    <%#= form.check_box :amenities, { multiple: true }, 'Closet/Drawers', nil %>
+    <%#= label_tag 'amenities', 'TV', class:"ml-3" %>
+    <%#= form.check_box :amenities, { multiple: true }, 'TV', nil %>
+    <%#= label_tag 'amenities', 'Heat', class:"ml-3" %>
+    <%#= form.check_box :amenities, { multiple: true }, 'Heat', nil %>
+    <%#= label_tag 'amenities', 'Air Conditioning', class:"ml-3" %>
+    <%#= form.check_box :amenities, { multiple: true }, 'Air Conditioning', nil %>
+    <%#= label_tag 'amenities', 'Breakfast, Coffee, Tea', class:"ml-3" %>
+    <%#= form.check_box :amenities, { multiple: true }, 'Breakfast, Coffee, Tea', nil %>
+    <%#= label_tag 'amenities', 'Desk/Workspace' %>
+    <%#= form.check_box :amenities, { multiple: true }, 'Desk/Workspace', nil%>
+    <%#= label_tag 'amenities', 'Fireplace', class:"ml-3" %>
+    <%#= form.check_box :amenities, { multiple: true }, 'Fireplace', nil%>
+    <%#= label_tag 'amenities', 'Iron', class:"ml-3" %>
+    <%#= form.check_box :amenities, { multiple: true }, 'Iron', nil %>
+    <%#= label_tag 'amenities', 'Hair Dryer', class:"ml-3" %>
+    <%#= form.check_box :amenities, { multiple: true }, 'Hair Dryer', nil %>
+    <%#= label_tag 'amenities', 'Pets in the House', class:"ml-3" %>
+    <%#= form.check_box :amenities, { multiple: true }, 'Pets in the House', nil %>
+    <%#= label_tag 'amenities', 'Private Entrance', class:"ml-3" %>
+    <%#= form.check_box :amenities, { multiple: true }, 'Private Entrance', nil %>
+  </div>
+
+  <!-- <div class="text-field">
+    <%#= form.label :price_per_night %>
+    <%#= form.text_field :price_per_night, class:"form-control" %></br>
+  </div> -->
+
+  <%= submit_tag "Filter Results", :name => nil, class:"btn btn-outline-info ml-3" %>
+</div>
+<% end %>
+
+<div id="search_results">
+  <%= render partial: 'search' %>
+</div>
+
+<div class="container d-flex justify-content-center mb-3">
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+      <div class="d-flex">
+        <% count = 0 %>
+        <% @paginate_count.times do %>
+        <% count += 1 %>
+        <li class="page-item"><a class="page-link" href="/?page=<%= count %>"><%= count %></a>
+        <% end %>
+      </div>
+      <li class="page-item"><a class="page-link" href="/?page=<%= +1 %>">Next</a></li>
+    </ul>
+  </nav>
+</div>

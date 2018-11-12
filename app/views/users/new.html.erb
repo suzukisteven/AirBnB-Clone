@@ -1,15 +1,19 @@
 <div id="clearance" class="sign-up">
-  <h2><%= t(".title") %></h2>
+  <div class="container mt-3">
+    <div class="jumbotron">
+      <h2 class="m-2"><%= t(".title") %></h2>
 
-  <%= form_for @user do |form| %>
-    <%= render partial: '/users/form', object: form %>
+      <%= form_for @user do |form| %>
+      <%= render partial: '/users/form', object: form %>
 
-    <div class="submit-field">
-      <%= form.submit %>
+      <div class="submit-field">
+        <%= form.submit class:"btn btn-success" %>
+      </div>
+
+      <div class="other-links">
+        <%= link_to t(".sign_in"), sign_in_path %>
+      </div>
+      <% end %>
     </div>
-
-    <div class="other-links">
-      <%= link_to t(".sign_in"), sign_in_path %>
-    </div>
-  <% end %>
+  </div>
 </div>

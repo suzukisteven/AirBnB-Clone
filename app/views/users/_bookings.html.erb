@@ -1,0 +1,45 @@
+<h1 class="mb-4">My Bookings</h1>
+<% if current_user.bookings != [] %>
+  <% current_user.bookings.each_with_index do |booking, i| %>
+    <div id="booking-id-<%= booking.id %>" class="card mb-3 w-25 mr-3 d-inline-block border border-dark">
+      <div class="card-header bg-dark text-center text-white">
+        <h5>
+          <strong>Booking
+            <%= i+1 %></strong>
+        </h5>
+      </div>
+      <div class="card-body text-center">
+        <!-- Issue here when user has less than 2 listings, sometimes happens on third -->
+        <!-- Was because of listing[i] index. Should be booking.listing.title etc -->
+        <h5 class="card-title">
+          <%= truncate(booking.listing.title, length: 40) %>
+        </h5>
+        <%= image_tag(booking.listing.images[0].thumb.url) %>
+        <p class="card-text mt-3">
+          <%= booking.listing.city %>,
+          <%= booking.listing.country%></p>
+        <p>
+          <strong>Check-in:</strong>
+          <%= booking.check_in %></p>
+        <p>
+          <strong>Check-out:</strong>
+          <%= booking.check_out %></p>
+        <p>
+          <strong>Guests:</strong>
+          <%= booking.guests_count %></p>
+        <% if booking.pending? %>
+          <%= link_to "Make Payment", braintree_new_path(booking_id: booking.id), class:"btn btn-success mb-3" %>
+        <% else %>
+          <%= link_to "Payment Made", braintree_new_path(booking_id: booking.id), class:"btn btn-success disabled mb-3" %>
+        <% end %>
+        <div class="container d-flex justify-content-center">
+          <%= link_to 'Cancel this Booking', booking_path(booking), method: :delete, remote: true, class: 'btn btn-danger booking-delete', value: booking.id, data: {confirm: 'Are you sure you want to delete this booking?'} %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <div class="container text-center">
+    <h5 class="text-center">You don't seem to have any bookings yet.</h5>
+  </div>
+<% end %>

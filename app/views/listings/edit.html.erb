@@ -1,0 +1,15 @@
+<div class="jumbotron">
+  <h2 class="text-center"> Edit Your Listing</h2>
+
+  <div class="jumbotron">
+    <%= form_with scope: :listing, url: listing_path, method: :patch, local: true do |form| %>
+
+    <%= render partial: 'form', listings: @listing, object: form %>
+    <div>
+      <%= form.submit "Update Listing", class:"btn btn-warning"%>
+    </div>
+    <% end %>
+    
+  </div>
+
+</div>

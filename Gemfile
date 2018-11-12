@@ -26,6 +26,20 @@ gem 'jbuilder', '~> 2.5'
 gem 'clearance'
 # Add Google OAuth to manage User Login
 gem "omniauth-google-oauth2", "~> 0.2.1"
+# Add Figaro for protection
+gem "figaro"
+# Add Faker
+gem 'faker'
+# Image uploading
+gem 'carrierwave', '~> 1.0'
+# Image Editing
+gem "mini_magick"
+# Braintree for payment processing
+gem 'braintree'
+
+gem 'foreman'
+gem 'rails_12factor'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
@@ -52,6 +66,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem "letter_opener"
   gem 'irbtools', require: 'irbtools/binding'
 end
 
