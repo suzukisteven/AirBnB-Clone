@@ -34,10 +34,11 @@ gem 'faker'
 gem 'carrierwave', '~> 1.0'
 # Image Editing
 gem "mini_magick"
-# Search Bar
-gem 'pg_search'
 # Braintree for payment processing
 gem 'braintree'
+
+gem 'foreman'
+gem 'rails_12factor'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'

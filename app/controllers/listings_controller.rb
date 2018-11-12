@@ -1,7 +1,7 @@
 class ListingsController < ApplicationController
     before_action :require_login
     before_action :set_listing, only: [:show, :edit, :update, :destroy, :verify]
-    before_action :check_user, only: [:show, :edit, :update, :destroy]
+    before_action :check_user, only: [:edit, :update, :destroy]
     before_action :check_role, only: [:verify]
 
     def index
@@ -15,6 +15,15 @@ class ListingsController < ApplicationController
       if params[:page] == 1
         @listings = @listings.first(10)
       end
+    end
+
+    def autofill
+      autofill = []
+      autofill.uniq
+      listings = Listing.multi(params[:searchvalue])
+      listings.each { |l| autofill << l.property_type && autofill << l.country && autofill << l.title && autofill << l.city}
+
+      render :json => autofill
     end
 
     def search_form
@@ -42,7 +51,11 @@ class ListingsController < ApplicationController
       # end
 
       @paginate_count = (@listings.count/8).to_i
-      render "listings/search"
+      # byebug
+      respond_to do |response|
+        response.html {render "listings/search"}
+        response.js
+      end
     end
 
     def show

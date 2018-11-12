@@ -13,3 +13,29 @@
  *= require_tree .
  *= require_self
  */
+
+/* Sticky booking side bar */
+ .fixed {
+   position: fixed;
+   top: 0;
+ }
+
+/* Expanding search bar */
+#main-search {
+  width: 285px !important;
+  -webkit-transition: all .5s ease;
+  -moz-transition: all .5s ease;
+  transition: all .5s ease;
+}
+
+#main-search:focus {
+  width: 500px !important;
+}
+
+#main-header {
+  background-image: url("../images/main-header.png") !important;
+}
+
+.sticky-offset {
+  top: 50px;
+}

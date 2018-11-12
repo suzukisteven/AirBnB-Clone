@@ -6,22 +6,26 @@
   <%= stylesheet_link_tag    'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css'%>
   <%= stylesheet_link_tag    'https://npmcdn.com/flatpickr/dist/themes/airbnb.css'%>
 
-  <%#= javascript_include_tag 'https://js.braintreegateway.com/web/3.6.3/js/client.min.js' %>
-  <%#= javascript_include_tag 'https://js.braintreegateway.com/web/3.6.3/js/hosted-fields.min.js' %>
+  <%= javascript_include_tag 'https://js.braintreegateway.com/web/3.6.3/js/client.min.js' %>
+  <%= javascript_include_tag 'https://js.braintreegateway.com/web/3.6.3/js/hosted-fields.min.js' %>
   <%= javascript_include_tag "https://code.jquery.com/jquery-3.3.1.js" %>
+  <%#= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/shortcuts/sticky.js" %>
+  <%#= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js" %>
+  <%#= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/shortcuts/infinite.js" %>
   <%= javascript_include_tag 'https://cdn.jsdelivr.net/npm/flatpickr' %>
   <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js' %>
   <%= javascript_include_tag 'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js' %>
   <!-- Load external CDN's first, then load local application -->
   <%= stylesheet_link_tag    'application' %>
   <%= javascript_include_tag 'application' %>
+  <%= favicon_link_tag asset_path('favicon.ico'), :rel => 'icon', :type => "image/x-icon" %>
 
   <%= csrf_meta_tag %>
   <title>ScamBnB: Plan your Vacation</title>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <i class="text-white fas fa-running"></i> <%= link_to "ScamBnB", root_path, class: "navbar-brand text-danger" %>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom border-top border-dark">
+    <i class="text-black fas fa-running"></i> <%= link_to "ScamBnB", root_path, class: "navbar-brand text-danger" %>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -33,8 +37,9 @@
           <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Let's Go!</button>
         </form> -->
         <%= form_tag search_path, method: :post, class:"form-inline" do %>
-          <%= text_field_tag "listing[multi]", nil, placeholder:"Where do you want to go today?", style:"width: 325px;", class:"form-control" %>
-          <%= submit_tag "Let's Go", :name => nil, class:"btn btn-outline-warning ml-3" %>
+          <%= text_field_tag "listing[multi]", nil, placeholder:"Where do you want to go today?", style:"width: 325px;", class:"form-control border border-dark", id:"main-search", list:"autofill"%>
+          <datalist id="autofill"></datalist>
+          <%= submit_tag "Search", :name => nil, class:"btn btn-outline-primary ml-3" %>
         <% end %>
       </ul>
 
@@ -76,7 +81,7 @@
   </div>
 
   <footer class="footer bg-dark h-100">
-    <p class="text-center text-white">ScamBnB 2018 &copy All rights reserved. Don't steal pls ok</p>
+    <p class="text-center text-white">ScamBnB Inc. 2018 &copy All rights reserved</p>
   </footer>
 
 </body>

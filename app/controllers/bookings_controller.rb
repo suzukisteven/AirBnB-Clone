@@ -28,8 +28,10 @@ class BookingsController < ApplicationController
 
   def destroy
     @booking = Booking.find(params[:id])
-    if @booking.destroy
-      redirect_to profile_path
+    if @booking.delete
+      respond_to do |format|
+        format.js
+      end
     end
   end
 
